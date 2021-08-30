@@ -1,4 +1,3 @@
-import { Router } from "express";
 import qrCode from "qrcode";
 
 import { HOST_URL } from "../../../config";
