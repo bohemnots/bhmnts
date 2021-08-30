@@ -6,13 +6,24 @@ import { useEffect, useMemo, useState } from "react";
 import { Player, PlayerMeta } from "../components/Player";
 import { Loading, Pause, Play } from "../components/svg";
 import { Text1, Text2 } from "../components/Text";
+import { HOST_URL } from "../config";
+import { METADATA } from "../context";
 import { useAppContext } from "../hooks";
 
-export default function PlayerPage() {
+export async function getServerSideProps() {
+  const response = await fetch(`${HOST_URL}${METADATA.URL}`);
+  const meta = await response.json();
+  return {
+    props: {
+      meta: meta || {},
+    },
+  };
+}
+
+export default function PlayerPage(props) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { meta } = useAppContext();
-
+  const meta = useAppContext().meta || props.meta;
   const t1 = meta ? meta.text1 || meta.trackName : "";
   const t2 = meta ? meta.text2 : "";
 
@@ -133,7 +144,10 @@ export default function PlayerPage() {
         {link ? (
           <Text2>
             <a
-              style={{ color: linkColor, backgroundColor: linkBackground }}
+              style={{
+                color: linkColor,
+                backgroundColor: linkBackground || "transparent",
+              }}
               target="_blank"
               rel="noopener noreferrer"
               href={link}

@@ -67,12 +67,7 @@ export const AppProvider = (props) => {
   const [showHeader, setShowHeader] = useState(true);
   const isLoading = React.useRef(false);
 
-  const [meta, setMeta] = React.useState<any>({
-    text1: "",
-    text2: "",
-    trackName: "",
-    imgUrl: null,
-  });
+  const [meta, setMeta] = React.useState<any>(props.meta);
 
   React.useEffect(() => {
     const id = setInterval(() => {
@@ -107,14 +102,10 @@ export const AppProvider = (props) => {
     }
   }
 
-  if (meta.imgUrl !== art) {
+  if (meta && meta.imgUrl !== art) {
     setArt(meta.imgUrl);
     updateBackground(meta.imgUrl);
     setShowFooter(true);
-  }
-
-  if (!meta.streamUrl) {
-    return null;
   }
 
   return (
