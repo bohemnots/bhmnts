@@ -49,8 +49,10 @@ const BuyButton = styled.div`
 export default function FestDesc(props) {
   const ctx = useAppContext();
 
-  ctx.setShowFooter(false);
-  ctx.setShowHeader(false);
+  React.useEffect(() => {
+    ctx.setShowFooter(false);
+    ctx.setShowHeader(false);
+  });
 
   return (
     <FestLayout className={props.className}>
@@ -79,15 +81,16 @@ export default function FestDesc(props) {
         <title> Bohemnots Radio &FilledSmallSquare;&#xFE0E; - Home</title>
       </Head>
       <View>
-        {(screen.width < 600 ? textMobile : text).map((t, index) => (
-          <P key={index}>
-            {t}
-            <br />
-          </P>
-        ))}
+        {typeof screen === "object" &&
+          (screen.width < 600 ? textMobile : text).map((t, index) => (
+            <P key={index}>
+              {t}
+              <br />
+            </P>
+          ))}
       </View>
       <BuyButton>
-        <a href="javascript:void()" className="disabled">
+        <a className="disabled">
           <Image
             src="/ticket-soon.png"
             alt={"Ticket Soon"}
