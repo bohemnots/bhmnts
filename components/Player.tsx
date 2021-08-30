@@ -5,7 +5,7 @@ export const Player = styled.div`
   flex-direction: column;
   align-items: center;
 
-  & {
+  & .icon {
     width: 10rem;
     height: 5rem;
     justify-content: center;

@@ -6,7 +6,6 @@ import { useAppContext } from "../hooks";
 
 export const MainLayout = styled.div`
   min-width: 100vw;
-  min-height: 60vh;
   display: flex;
   justify-content: center;
   align-items: center;
