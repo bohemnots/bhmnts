@@ -1,11 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
+import { HOST_URL } from "../config";
 import { IMeta, METADATA } from "../context";
 import { useAppContext } from "../hooks";
 
-export default function EditPage() {
-  const { meta } = useAppContext();
+export async function getServerSideProps() {
+  const response = await fetch(`${HOST_URL}${METADATA.URL}`);
+  const meta = await response.json();
+  return {
+    props: {
+      meta: meta || {},
+    },
+  };
+}
+
+export default function EditPage(props) {
+  const meta = useAppContext().meta || props.meta;
   const [message, setMessage] = React.useState("");
 
   function onSubmit(e) {
