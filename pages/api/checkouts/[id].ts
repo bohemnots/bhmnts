@@ -59,8 +59,10 @@ export default async function handler(
 
       await updateCheckout(checkoutId, { status, notes });
       const checkout = await getCheckout(checkoutId);
-      const paymentId = checkout.init.PaymentID;
-
+      const paymentId = checkout.init?.PaymentID;
+      if (!paymentId || !checkout.details || !checkout.email) {
+        throw new Error(`checkout is invalid, have a missing property`);
+      }
       if (status === "approved") {
         if (!paymentId) {
           throw new Error(`There is no paymentId for this checkout.`);
