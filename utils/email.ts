@@ -15,6 +15,7 @@ export const sendDeny = async (email: string, notes: string) => {
     from: "bohemnotsradio@gmail.com",
     to: email,
     templateId: DENY_ID,
+    category: "transactional",
     dynamicTemplateData: {
       notes,
     },
@@ -31,6 +32,7 @@ export const sendApprove = (
     from: "bohemnotsradio@gmail.com",
     to: email,
     templateId: APPROVE_ID,
+    category: "transactional",
     dynamicTemplateData: {
       qrCodeUrl,
       notes,
