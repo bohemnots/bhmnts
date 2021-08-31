@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 
@@ -30,6 +31,7 @@ const P = styled.p`
 
 const BuyButton = styled.div`
   text-align: center;
+  cursor: pointer;
 
   & .disabled img {
     filter: grayscale(100%);
@@ -38,7 +40,6 @@ const BuyButton = styled.div`
   a {
     border-radius: 16px;
     text-decoration: none;
-    cursor: default;
   }
 
   img {
@@ -90,14 +91,14 @@ export default function FestDesc(props) {
           ))}
       </View>
       <BuyButton>
-        <a className="disabled">
+        <Link href="/buy" passHref>
           <Image
-            src="/ticket-soon.png"
+            src="/buy-ticket.png"
             alt={"Ticket Soon"}
             width="250"
             height="95"
           />
-        </a>
+        </Link>
       </BuyButton>
     </FestLayout>
   );

@@ -59,7 +59,7 @@ handler.post(async (req, res) => {
 
     const data = await client.initPayment({
       orderId: orderId,
-      amount: 10,
+      amount: 6000,
       desc: `Bohemnots event ticket purchase`,
       opaque: JSON.stringify({ checkoutId: checkout._id }),
       backUrl: `${HOST_URL}/api/payment`,
