@@ -35,3 +35,23 @@ export const newRequest = async (checkout, host?: string) => {
     console.error(err);
   }
 };
+
+export const ameriaResponse = async (checkout, response) => {
+  try {
+    await bot.sendMessage(
+      TELEGRAM.CHAT_ID,
+      [
+        `Ameria Response`,
+        `Checkout ID: ${checkout.id || checkout._id}`,
+        `Checkout Email: ${checkout.email}`,
+        `\`${JSON.stringify(response)}\``,
+      ].join("\n"),
+      {
+        disable_web_page_preview: true,
+        disable_notification: !config.IS_PROD,
+      }
+    );
+  } catch (err) {
+    console.error(err);
+  }
+};
