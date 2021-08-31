@@ -73,6 +73,9 @@ export const CheckoutReview = (props) => {
 
   useEffect(() => {
     (async () => {
+      if (!checkoutId) {
+        return;
+      }
       const response = await fetch(`/api/checkouts/${checkoutId}`, {
         // @ts-ignore
         Accept: "application/json",
