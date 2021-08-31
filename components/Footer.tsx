@@ -19,9 +19,9 @@ const sc = "https://soundcloud.com/bohemnotsradio";
 const pt = "https://www.patreon.com/bohemnotsradio";
 
 const Nav = styled.nav`
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  right: 20px;
+  right: 0;
   margin: 0 0 0 auto;
   text-align: right;
 
