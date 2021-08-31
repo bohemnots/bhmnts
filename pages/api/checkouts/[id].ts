@@ -88,7 +88,6 @@ export default async function handler(
       }
       res.json({ data: checkout });
     } catch (err) {
-      debugger;
       console.error(err);
       res.json({ message: err.message });
     }
