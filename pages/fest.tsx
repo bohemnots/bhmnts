@@ -60,7 +60,7 @@ export default function FestDesc(props) {
       <Head>
         <meta
           name="description"
-          content="Hi dear… On the 23, 24, 25, 26 of September we are planning to organize a festival In the creative house of Dilijan Composers' Union. There are multigenre projects, bands and artists involved in the line up. To make the festival real, we do not want to ask for any sponsorship, because we want to be truthful to our manifest and keep our freedom."
+          content="From September 23 to 27, at the Creative House of Composers' Union after Edward Mirzoyan in Dilijan"
         ></meta>
         <meta property="og:title" content="Bohemnots Radio ◼︎"></meta>
         <meta
@@ -74,7 +74,7 @@ export default function FestDesc(props) {
         <meta property="og:image:width" content="300"></meta>
         <meta
           property="og:description"
-          content="Hi dear… On the 23, 24, 25, 26 of September we are planning to organize a festival In the creative house of Dilijan Composers' Union. There are multigenre projects, bands and artists involved in the line up. To make the festival real, we do not want to ask for any sponsorship, because we want to be truthful to our manifest and keep our freedom."
+          content="From September 23 to 27, at the Creative House of Composers' Union after Edward Mirzoyan in Dilijan"
         ></meta>
         <meta property="og:type" content="music.radio_station"></meta>
         <meta property="og:url" content="https://bohemnotsradio.com/"></meta>
