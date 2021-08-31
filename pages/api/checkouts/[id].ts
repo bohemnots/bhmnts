@@ -86,7 +86,7 @@ export default async function handler(
           );
         }
         await sendApprove(checkout.email, checkoutId, notes);
-      } else if (status === "refund") {
+      } else if (status === "refunded") {
         const refundResponse = await AmeriaClient.cancelPayment(paymentId);
         await updateCheckout(checkoutId, { refund: refundResponse });
       } else {

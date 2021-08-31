@@ -104,8 +104,9 @@ export const CheckoutReview = (props) => {
       } else {
         const feed = await response.json();
         const msg = feed.message || feed;
+        const str = typeof msg === "string" ? msg : JSON.stringify(msg);
         if (msg) {
-          alert(msg);
+          alert(str);
         }
       }
       location.reload();
@@ -153,6 +154,9 @@ export const CheckoutReview = (props) => {
           />
           <button onClick={() => update("approved")}>Approve</button>
           <button onClick={() => update("rejected")}>Reject</button>
+          {checkout.status === "approved" ? (
+            <button onClick={() => update("refunded")}>Refund</button>
+          ) : null}
         </div>
       </View>
     </Container>
