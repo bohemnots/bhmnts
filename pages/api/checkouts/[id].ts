@@ -74,17 +74,23 @@ export default async function handler(
           paymentId,
           checkout.details.Amount
         );
+        await updateCheckout(checkoutId, { confirm: confirmResponse });
         if (!["00", "07"].includes(confirmResponse.ResponseCode)) {
-          throw new Error(confirmResponse.ResponseMessage);
+          console.error(
+            `Unknown response,  ${JSON.stringify(confirmResponse)}`
+          );
         }
         await sendApprove(checkout.email, checkoutId, notes);
       } else {
-        await AmeriaClient.cancelPayment(paymentId);
+        const cancelResponse = await AmeriaClient.cancelPayment(paymentId);
+        await updateCheckout(checkoutId, { cancel: cancelResponse });
         await sendDeny(checkout.email, notes);
       }
       res.json({ data: checkout });
     } catch (err) {
+      debugger;
       console.error(err);
+      res.json({ message: err.message });
     }
   }
 }
