@@ -11,23 +11,14 @@ const DENY_ID = "d-33026eebeee546f0b442194a5ab470c7";
 const APPROVE_ID = "d-a1ecd6ed7f184b3a83dbab0bbb3ff32a";
 
 export const sendDeny = async (email: string, notes: string) => {
-  try {
-    console.log("sending denying email to");
-    console.log({
-      email,
+  await SendGrid.send({
+    from: "bohemnotsradio@gmail.com",
+    to: email,
+    templateId: DENY_ID,
+    dynamicTemplateData: {
       notes,
-    });
-    await SendGrid.send({
-      from: "bohemnotsradio@gmail.com",
-      to: email,
-      templateId: DENY_ID,
-      dynamicTemplateData: {
-        notes,
-      },
-    });
-  } catch (err) {
-    console.error(err);
-  }
+    },
+  });
 };
 
 export const sendApprove = (
@@ -35,24 +26,14 @@ export const sendApprove = (
   checkoutId: string,
   notes: String
 ) => {
-  try {
-    const qrCodeUrl = getTicketUrl(checkoutId);
-    console.log("sending approval email to");
-    console.log({
-      email,
+  const qrCodeUrl = getTicketUrl(checkoutId);
+  return SendGrid.send({
+    from: "bohemnotsradio@gmail.com",
+    to: email,
+    templateId: APPROVE_ID,
+    dynamicTemplateData: {
       qrCodeUrl,
       notes,
-    });
-    return SendGrid.send({
-      from: "bohemnotsradio@gmail.com",
-      to: email,
-      templateId: APPROVE_ID,
-      dynamicTemplateData: {
-        qrCodeUrl,
-        notes,
-      },
-    });
-  } catch (err) {
-    console.error(err);
-  }
+    },
+  });
 };
