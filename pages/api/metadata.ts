@@ -21,7 +21,6 @@ export default async function handler(
   }
 
   if (req.method === "PATCH") {
-    debugger;
     const update = req.body;
     if (config.PASSWORD) {
       if (req.body.password !== config.PASSWORD) {

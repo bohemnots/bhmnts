@@ -39,9 +39,12 @@ export const config = {
 handler.post(async (req, res) => {
   try {
     await connect();
-    debugger;
-    const body = req.body;
-    const checkout = await createCheckout(body);
+    const newData = {
+      name: req.body.name + "",
+      surname: req.body.surname + "",
+      email: req.body.email + "",
+    };
+    const checkout = await createCheckout(newData);
     const orderId = await nextOrderId();
 
     // @ts-ignore
@@ -53,13 +56,13 @@ handler.post(async (req, res) => {
       Key,
       Body: buffer,
       ACL: "public-read",
-      ContentDisposition: `filename: "${body.email}.jpg"`,
+      ContentDisposition: `filename: "${newData.email}.jpg"`,
       ContentType: "image/jpeg",
     });
 
     const data = await client.initPayment({
       orderId: orderId,
-      amount: 6000,
+      amount: AMERIA_IS_TEST ? 10 : 6000,
       desc: `Bohemnots event ticket purchase`,
       opaque: JSON.stringify({ checkoutId: checkout._id }),
       backUrl: `${HOST_URL}/api/payment`,

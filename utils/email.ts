@@ -26,12 +26,13 @@ export const sendApprove = (
   checkoutId: string,
   notes: String
 ) => {
+  const qrCodeUrl = getTicketUrl(checkoutId);
   SendGrid.send({
     from: "bohemnotsradio@gmail.com",
     to: email,
     templateId: APPROVE_ID,
     dynamicTemplateData: {
-      qrCodeUrl: getTicketUrl(checkoutId),
+      qrCodeUrl,
       notes,
     },
   });

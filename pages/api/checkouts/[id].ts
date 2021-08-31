@@ -26,7 +26,10 @@ export default async function handler(
   await connect();
 
   if (req.method === "GET") {
-    const checkoutId = req.query.id;
+    if (!req.query.id || req.query.id === "undefined") {
+      throw new Error(`[id] is missing in the URL`);
+    }
+    const checkoutId = req.query.id + "";
 
     try {
       const checkout = await getCheckout(checkoutId);

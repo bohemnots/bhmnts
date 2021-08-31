@@ -6,7 +6,7 @@ import { ObjectId } from "mongodb";
 
 import { checkoutCollection } from "./client";
 
-export const getCheckout = async (id): Promise<ICheckout> => {
+export const getCheckout = async (id: string): Promise<ICheckout> => {
   const doc = await checkoutCollection.findOne({ _id: new ObjectId(id) });
   return doc as ICheckout;
 };
@@ -19,7 +19,8 @@ export const createCheckout = async (data): Promise<ICheckout> => {
     createdAt: new Date(),
     updatedAt: new Date(),
   });
-  return getCheckout(checkout.insertedId.id);
+  const id = new ObjectId(checkout.insertedId).toString();
+  return getCheckout(id);
 };
 
 export const updateCheckout = async (id, data): Promise<ICheckout> => {

@@ -77,6 +77,9 @@ export default function Ticket(props) {
   }, [ctx]);
 
   useEffect(() => {
+    if (!checkoutId) {
+      return;
+    }
     (async () => {
       const response = await fetch(`/api/checkouts/${checkoutId}`, {
         // @ts-ignore
