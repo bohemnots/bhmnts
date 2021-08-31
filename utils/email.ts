@@ -11,7 +11,7 @@ const DENY_ID = "d-33026eebeee546f0b442194a5ab470c7";
 const APPROVE_ID = "d-a1ecd6ed7f184b3a83dbab0bbb3ff32a";
 
 export const sendDeny = (email: string, notes: string) => {
-  SendGrid.send({
+  return SendGrid.send({
     from: "bohemnotsradio@gmail.com",
     to: email,
     templateId: DENY_ID,
@@ -27,7 +27,7 @@ export const sendApprove = (
   notes: String
 ) => {
   const qrCodeUrl = getTicketUrl(checkoutId);
-  SendGrid.send({
+  return SendGrid.send({
     from: "bohemnotsradio@gmail.com",
     to: email,
     templateId: APPROVE_ID,
