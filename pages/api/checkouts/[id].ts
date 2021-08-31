@@ -58,9 +58,15 @@ export default async function handler(
           `Invalid status '${status}', must be ${VALID.join(" or ")}`
         );
       }
+      let checkout = await getCheckout(checkoutId);
 
-      await updateCheckout(checkoutId, { status, notes });
-      const checkout = await getCheckout(checkoutId);
+      if (checkout.status !== "approved") {
+        throw new Error(
+          `To refund the purchase first you need to approve it. `
+        );
+      }
+
+      checkout = await updateCheckout(checkoutId, { status, notes });
       const paymentId = checkout.init?.PaymentID;
       if (!paymentId || !checkout.details || !checkout.email) {
         throw new Error(`checkout is invalid, have a missing property`);
@@ -69,7 +75,6 @@ export default async function handler(
         if (!paymentId) {
           throw new Error(`There is no paymentId for this checkout.`);
         }
-
         const confirmResponse = await AmeriaClient.confirmPayment(
           paymentId,
           checkout.details.Amount
@@ -81,6 +86,9 @@ export default async function handler(
           );
         }
         await sendApprove(checkout.email, checkoutId, notes);
+      } else if (status === "refund") {
+        const refundResponse = await AmeriaClient.cancelPayment(paymentId);
+        await updateCheckout(checkoutId, { refund: refundResponse });
       } else {
         const cancelResponse = await AmeriaClient.cancelPayment(paymentId);
         await updateCheckout(checkoutId, { cancel: cancelResponse });
