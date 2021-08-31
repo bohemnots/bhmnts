@@ -103,8 +103,12 @@ export const CheckoutReview = (props) => {
         location.href = `/tickets/${checkout._id}`;
       } else {
         const feed = await response.json();
-        alert(feed.message);
+        const msg = feed.message || feed;
+        if (msg) {
+          alert(msg);
+        }
       }
+      location.reload();
     },
     [checkout, password, notes]
   );
