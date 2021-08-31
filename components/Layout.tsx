@@ -51,7 +51,15 @@ const Header = styled.header`
   padding: 12px;
 `;
 
-const HeaderItem = styled.span``;
+export const HeaderItem = styled.span`
+  margin: 12px;
+
+  & a,
+  & a:visited {
+    color: #fff;
+    text-decoration: none;
+  }
+`;
 
 const LinkA = styled.a`
   font-size: 11pt;

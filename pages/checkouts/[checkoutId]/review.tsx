@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
+import { HeaderItem } from "../../../components/Layout";
 import { useAppContext } from "../../../hooks";
 import { ICheckout } from "../../../mongo";
 
@@ -26,10 +27,6 @@ const Header = styled.header`
   flex-direction: row;
   justify-content: space-between;
   font-size: 11pt;
-`;
-
-const HeaderItem = styled.span`
-  margin: 12px;
 `;
 
 const Link = styled.a`

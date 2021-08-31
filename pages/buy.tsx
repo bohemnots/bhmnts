@@ -1,7 +1,7 @@
 import { Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import styled from "styled-components";
 import * as Yup from "yup";
 
@@ -68,8 +68,8 @@ const Input = styled.input`
 
 const Photo = styled.div`
   position: relative;
-  width: 300px;
-  max-width: 300px;
+  width: auto;
+  max-width: 100vw;
 
   & img {
     display: block;
@@ -77,26 +77,11 @@ const Photo = styled.div`
     height: auto;
     object-fit: contain;
   }
+`;
 
-  &:hover .overlay {
-    opacity: 1;
-  }
-
-  & .overlay {
-    position: absolute;
-    bottom: 0;
-    background: rgb(0, 0, 0);
-    background: rgba(0, 0, 0, 0.5); /* Black see-through */
-    color: #f1f1f1;
-    width: 100%;
-    transition: 0.5s ease;
-    opacity: 0;
-    color: white;
-    font-size: 20px;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-  }
+const Remove = styled.button`
+  display: block;
+  margin: auto;
 `;
 
 const About: React.FC<{ className?: string }> = ({ className }) => {
@@ -139,6 +124,7 @@ const StyledAbout = styled(About)`
 
 export default function Buy() {
   const ctx = useAppContext();
+  const ref = useRef<HTMLInputElement>(null);
   const buy = useCallback(async (values) => {
     const form = new FormData();
     form.append("name", values.name);
@@ -204,6 +190,7 @@ export default function Buy() {
 
               <Label htmlFor="photo">{"* photo"}</Label>
               <input
+                ref={ref}
                 onChange={(e) => {
                   if (!e) {
                     return null;
@@ -225,7 +212,21 @@ export default function Buy() {
                 name="photo"
                 capture="user"
                 required
+                hidden={!!values.photo}
               ></input>
+              {values.photo ? (
+                <Remove
+                  onClick={() => {
+                    setFieldValue("file", null);
+                    setFieldValue("photo", null);
+                    if (ref.current) {
+                      ref.current.value = "";
+                    }
+                  }}
+                >
+                  REMOVE
+                </Remove>
+              ) : null}
               <Photo>
                 {values.photo ? (
                   <>
@@ -237,15 +238,6 @@ export default function Buy() {
                         alt="Selected Image"
                       />
                     ) : null}
-                    <div
-                      className="overlay"
-                      onClick={() => {
-                        setFieldValue("file", null);
-                        setFieldValue("photo", null);
-                      }}
-                    >
-                      REMOVE
-                    </div>
                   </>
                 ) : null}
               </Photo>
