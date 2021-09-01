@@ -72,7 +72,7 @@ export default function FestDesc(props) {
         <meta property="og:type" content="music.radio_station"></meta>
         <meta property="og:url" content="https://bohemnotsradio.com/"></meta>
         <meta property="fb:app_id" content="617494228985895"></meta>
-        <title> Bohemnots Radio &FilledSmallSquare;&#xFE0E; - Home</title>
+        <title>Bohemnots Radio</title>
       </Head>
       <View>
         {typeof screen === "object" &&

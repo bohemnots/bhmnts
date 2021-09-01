@@ -5,7 +5,7 @@ import { FestLayout } from "../components/Layout";
 import { useAppContext } from "../hooks";
 
 const P = styled.p`
-  font-size: 16px;
+  font-size: 14px;
 `;
 
 const About = (props) => {

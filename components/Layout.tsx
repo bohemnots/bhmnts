@@ -58,6 +58,7 @@ export const HeaderItem = styled.span`
   & a:visited {
     color: #fff;
     text-decoration: none;
+    font-size: 12px;
   }
 `;
 

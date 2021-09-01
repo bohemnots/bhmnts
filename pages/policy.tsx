@@ -7,7 +7,7 @@ import { useAppContext } from "../hooks";
 const Pre = styled.pre`
   white-space: pre-wrap;
   font-family: Arial;
-
+  font-size: 14px;
   margin-bottom: 50px;
 `;
 

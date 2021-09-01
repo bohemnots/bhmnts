@@ -119,7 +119,7 @@ export default function PlayerPage(props) {
         <meta property="og:url" content="https://bohemnotsradio.com/"></meta>
         <meta property="fb:app_id" content="617494228985895"></meta>
         <meta property="fb:og:updated_time" content={meta.updatedAt}></meta>
-        <title> Bohemnots Radio &FilledSmallSquare;&#xFE0E; - Home</title>
+        <title>Bohemnots Radio</title>
       </Head>
       <div
         className="icon"
