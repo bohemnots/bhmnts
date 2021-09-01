@@ -5,7 +5,6 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import type { AppProps } from "next/app";
 
 import Footer from "../components/Footer";
-import Header from "../components/Header";
 import { MainLayout } from "../components/Layout";
 import { AppContext, AppProvider } from "../context";
 
@@ -15,10 +14,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AppProvider>
       <AppContext.Consumer>
-        {({ showFooter, showHeader }) => {
+        {({ showFooter }) => {
           return (
             <>
-              <Header hidden={!showHeader} />
               <MainLayout>
                 <Component {...pageProps} />
               </MainLayout>

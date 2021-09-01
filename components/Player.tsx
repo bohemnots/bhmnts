@@ -4,6 +4,7 @@ export const Player = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 10%;
 
   & .icon {
     width: 10rem;
