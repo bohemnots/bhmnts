@@ -70,7 +70,10 @@ export default function FestDesc(props) {
           content="From September 23 to 27, at the Creative House of Composers' Union after Edward Mirzoyan in Dilijan"
         ></meta>
         <meta property="og:type" content="music.radio_station"></meta>
-        <meta property="og:url" content="https://bohemnotsradio.com/"></meta>
+        <meta
+          property="og:url"
+          content="https://bohemnotsradio.com/fest"
+        ></meta>
         <meta property="fb:app_id" content="617494228985895"></meta>
         <title>Bohemnots Radio</title>
       </Head>
