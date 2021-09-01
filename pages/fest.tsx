@@ -111,8 +111,8 @@ const text = [
   `VHSound collective . Rozen Tal . Hov . La Koté . Jrimurmur`,
   `Eko & Vinda Folio`,
   `KamavoSian . Pupylike . s<3vu . Chemical Wedding . Tøtal . holly ƒ . Dave N.A.`,
-  `missteikk . Kogeno . YOSSARIAN . Merouj . otar . Taya . sardaryans . ÉLÉKTRA . inky . Lexs Plath`,
-  `长amunts . Ru Bee . Dav . Joseph Zakarian . GFRND`,
+  `missteikk . Kogeno . YOSSARIAN . Merouj . otar . Taya . sardaryans . ÉLÉKTRA . inky . Lex Palth`,
+  `长amunts . Ru Bee . DAV . Joseph Zakarian . GFRND`,
 ];
 
 const textMobile = [
@@ -136,9 +136,9 @@ const textMobile = [
   `Tøtal . holly ƒ . Dave N.A.`,
   `missteikk . Kogeno . Merouj`,
   `YOSSARIAN`,
-  `Dav . otar . Taya . sardaryans . inky`,
+  `DAV . otar . Taya . sardaryans . inky`,
   `ÉLÉKTRA `,
-  `Lexs Plath . 长amunts . Ru Bee`,
+  `Lex Palth . 长amunts . Ru Bee`,
   `Joseph Zakarian`,
   `GFRND`,
 ];
