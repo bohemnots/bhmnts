@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         {({ showFooter, showHeader }) => {
           return (
             <>
-              {showHeader ? <Header /> : null}
+              <Header hidden={!showHeader} />
               <MainLayout>
                 <Component {...pageProps} />
               </MainLayout>

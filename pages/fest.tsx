@@ -48,13 +48,6 @@ const BuyButton = styled.div`
 `;
 
 export default function FestDesc(props) {
-  const ctx = useAppContext();
-
-  React.useEffect(() => {
-    ctx.setShowFooter(false);
-    ctx.setShowHeader(false);
-  });
-
   return (
     <FestLayout className={props.className}>
       <Head>

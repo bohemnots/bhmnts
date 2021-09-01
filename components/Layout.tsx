@@ -79,8 +79,8 @@ export const FestLayout = (props) => {
   const ctx = useAppContext();
 
   useEffect(() => {
-    ctx.setShowFooter(false);
     ctx.setShowHeader(false);
+    ctx.setShowFooter(false);
   });
 
   return (
