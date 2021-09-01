@@ -60,7 +60,7 @@ export default async function handler(
       }
       let checkout = await getCheckout(checkoutId);
 
-      if (checkout.status !== "approved") {
+      if (status === "refund" && checkout.status !== "approved") {
         throw new Error(
           `To refund the purchase first you need to approve it. `
         );
