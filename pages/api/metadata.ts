@@ -16,6 +16,7 @@ export default async function handler(
   await connect();
   if (req.method === "GET") {
     const doc = await getMetadata();
+    res.setHeader("Cache-Control", "no-cache");
     res.status(200).json(doc);
     return;
   }
