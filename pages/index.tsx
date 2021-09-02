@@ -23,21 +23,16 @@ export default function PlayerPage(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [art, setArt] = React.useState(null);
   const [meta, setMeta] = React.useState<any>(props.meta);
-  const { getMetadata, isLoading: isLoadingMeta } = useMetadata();
+  const { getMetadata } = useMetadata();
   const { info } = useLiveInfo();
 
   React.useEffect(() => {
-    const id = setInterval(() => {
-      if (isLoadingMeta) return;
-      getMetadata().then((newMeta) => {
-        if (JSON.stringify(newMeta) !== JSON.stringify(meta)) {
-          setMeta(newMeta);
-        }
-      });
-    }, METADATA.UPDATE_INTERVAL);
-
-    return () => clearInterval(id);
-  }, [isLoadingMeta, meta, getMetadata]);
+    getMetadata().then((newMeta) => {
+      if (JSON.stringify(newMeta) !== JSON.stringify(meta)) {
+        setMeta(newMeta);
+      }
+    });
+  }, [meta, getMetadata]);
 
   const updateBackground = useCallback((imgUrl) => {
     const body = document?.getElementsByTagName("body")[0];
