@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef, useState } from "react";
+import React, { useCallback, useContext,  useState } from "react";
 
 export const METADATA = {
   URL: `/api/metadata`,
@@ -39,9 +39,8 @@ interface IContext {
   setLoading: (value) => void;
   setShowFooter: (val: boolean) => void;
   setShowHeader: (val: boolean) => void;
-  setLang: (_value) => void;
+  setLang: (value) => void;
   lang: string;
-  meta: IMeta;
 }
 
 export const defaultAppContext = {
@@ -62,21 +61,6 @@ export const AppContext = React.createContext<IContext>(defaultAppContext);
 
 export const useAppContext = () => {
   return useContext(AppContext);
-};
-
-export const useMetadata = () => {
-  const isLoading = useRef(false);
-  const getMetadata = useCallback(async (): Promise<IMeta> => {
-    isLoading.current = true;
-    try {
-      const response = await fetch(METADATA.URL);
-      return sortObj(await response.json());
-    } finally {
-      isLoading.current = false;
-    }
-  }, []);
-
-  return { isLoading: isLoading.current, getMetadata };
 };
 
 export const useLiveInfo = () => {
@@ -106,19 +90,11 @@ export const AppProvider = (props) => {
   const [lang, setLang] = useState("en");
   const [showFooter, setShowFooter] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
-  const { getMetadata } = useMetadata();
-
-  const [meta, setMeta] = React.useState<any>(props.meta);
-
-  React.useEffect(() => {
-    getMetadata().then(setMeta);
-  }, [getMetadata]);
 
   return (
     <AppContext.Provider
       value={{
         ...defaultAppContext,
-        meta,
         showFooter,
         setShowFooter: (val) => setShowFooter(val),
         setShowHeader: (val) => setShowHeader(val),

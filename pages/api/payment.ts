@@ -9,7 +9,7 @@ import {
   AMERIA_PW,
   AMERIA_UN,
 } from "../../config";
-import { connect, getCheckout, updateCheckout } from "../../mongo";
+import { getCheckout, updateCheckout, withConnection } from "../../mongo";
 import * as telegram from "../../utils/telegram";
 
 const client = new Client({
@@ -24,30 +24,33 @@ const successCodes = ["00", "01"];
 const handler = nc<NextApiRequest, NextApiResponse>();
 
 handler.get(async (req, res) => {
-  await connect();
-  const { paymentID, opaque } = req.query; // paymentID ameria payment id
-  const { checkoutId } = JSON.parse(opaque.toString());
-  assert.ok(checkoutId, new Error("missing 'checkoutId'"));
+  return withConnection(async () => {
+    const { paymentID, opaque } = req.query; // paymentID ameria payment id
+    const { checkoutId } = JSON.parse(opaque.toString());
+    assert.ok(checkoutId, new Error("missing 'checkoutId'"));
 
-  try {
-    const checkout = await getCheckout(checkoutId);
-    const details = await client.getPaymentDetails(paymentID.toString());
-    telegram.newRequest(checkout);
-    await updateCheckout(checkoutId, {
-      details,
-      status: successCodes.includes(details.ResponseCode) ? "success" : "error",
-    });
+    try {
+      const checkout = await getCheckout(checkoutId);
+      const details = await client.getPaymentDetails(paymentID.toString());
+      telegram.newRequest(checkout);
+      await updateCheckout(checkoutId, {
+        details,
+        status: successCodes.includes(details.ResponseCode)
+          ? "success"
+          : "error",
+      });
 
-    if (successCodes.includes(details.ResponseCode)) {
+      if (successCodes.includes(details.ResponseCode)) {
+        res.redirect(`/tickets/${checkoutId}`);
+        return;
+      }
+
       res.redirect(`/tickets/${checkoutId}`);
-      return;
+    } catch (err) {
+      console.error(err);
+      res.redirect(`/tickets/${checkoutId}`);
     }
-
-    res.redirect(`/tickets/${checkoutId}`);
-  } catch (err) {
-    console.error(err);
-    res.redirect(`/tickets/${checkoutId}`);
-  }
+  });
 });
 
 export default handler;

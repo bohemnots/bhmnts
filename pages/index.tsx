@@ -6,7 +6,7 @@ import { Player, PlayerMeta } from "../components/Player";
 import { Loading, Pause, Play } from "../components/svg";
 import { Text1, Text2 } from "../components/Text";
 import { HOST_URL } from "../config";
-import { METADATA, useLiveInfo, useMetadata } from "../context";
+import { METADATA, useLiveInfo } from "../context";
 
 export async function getServerSideProps() {
   const response = await fetch(`${HOST_URL}${METADATA.URL}`);
@@ -19,16 +19,11 @@ export async function getServerSideProps() {
 }
 
 export default function PlayerPage(props) {
+  const { meta } = props;
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [art, setArt] = React.useState(null);
-  const [meta, setMeta] = React.useState<any>(props.meta);
-  const { getMetadata } = useMetadata();
   const { info } = useLiveInfo();
-
-  React.useEffect(() => {
-    getMetadata().then(setMeta);
-  }, [getMetadata]);
 
   const updateBackground = useCallback((imgUrl) => {
     const body = document?.getElementsByTagName("body")[0];
