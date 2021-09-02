@@ -227,7 +227,10 @@ const Block = styled.div<IMetaProps>`
   height: 20px;
   width: 20px;
   display: inline-block;
-  border: 2px ${(props) => (props.color ? "solid" : "dashed")} black;
+  border: 2px
+    ${(props) =>
+      props.color && props.color !== "transparent" ? "solid" : "dashed"}
+    black;
   background-color: ${(props) => props.color || "transparent"};
   vertical-align: middle;
 `;
