@@ -1,5 +1,5 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import fetch from "node-fetch";
 
 import * as config from "../../config";
 import {
@@ -16,8 +16,14 @@ export default async function handler(
   await connect();
   if (req.method === "GET") {
     const doc = await getMetadata();
+    const response = await fetch("https://bhmnts.airtime.pro/api/live-info-v2");
+    const data: any = await response.json();
+    let trackName = "";
+    if (data?.tracks?.current?.name) {
+      trackName = data?.tracks?.current?.name;
+    }
     res.setHeader("Cache-Control", "no-cache");
-    res.status(200).json(doc);
+    res.status(200).json({ ...doc, trackName: trackName || doc.trackName });
     return;
   }
 
