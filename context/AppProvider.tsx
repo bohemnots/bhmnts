@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
 
 export const METADATA = {
   URL: `/api/metadata`,
@@ -64,53 +64,57 @@ export const useAppContext = () => {
   return useContext(AppContext);
 };
 
+export const useMetadata = () => {
+  const isLoading = useRef(false);
+  const getMetadata = useCallback(async (): Promise<IMeta> => {
+    isLoading.current = true;
+    try {
+      const response = await fetch(METADATA.URL);
+      return sortObj(await response.json());
+    } finally {
+      isLoading.current = false;
+    }
+  }, []);
+
+  return { isLoading: isLoading.current, getMetadata };
+};
+
+export const useLiveInfo = () => {
+  const [info, setInfo] = useState<any>();
+
+  const getInfo = useCallback(async () => {
+    const response = await fetch("https://bhmnts.airtime.pro/api/live-info-v2");
+    const data: any = await response.json();
+    const newInfo = sortObj(data);
+    if (JSON.stringify(newInfo) !== JSON.stringify(info)) {
+      setInfo(newInfo);
+    }
+  }, [setInfo, info]);
+
+  React.useEffect(() => {
+    const t = setInterval(() => {
+      getInfo();
+    }, 1000);
+
+    return () => clearInterval(t);
+  }, [getInfo]);
+
+  return { info };
+};
+
 export const AppProvider = (props) => {
   const [lang, setLang] = useState("en");
-  const [art, setArt] = React.useState(null);
   const [showFooter, setShowFooter] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
-  const isLoading = React.useRef(false);
+  const { getMetadata, isLoading } = useMetadata();
 
   const [meta, setMeta] = React.useState<any>(props.meta);
 
   React.useEffect(() => {
-    const id = setInterval(() => {
-      if (isLoading.current) return;
-      isLoading.current = true;
-      fetch(METADATA.URL)
-        .then((response) => {
-          return response.json().then((data) => {
-            const newMeta = sortObj(data);
-            if (JSON.stringify(newMeta) !== JSON.stringify(meta)) {
-              setMeta(newMeta);
-            }
-          });
-        })
-        .catch((_err) => {})
-        .finally(() => (isLoading.current = false));
-    }, METADATA.UPDATE_INTERVAL);
-
-    return () => clearInterval(id);
-  }, [isLoading, meta]);
-
-  function updateBackground(imgUrl) {
-    const body = document?.getElementsByTagName("body")[0];
-    if (!body) {
-      return;
-    }
-    const newUrl = `url("${imgUrl}")`;
-    if (body.style.backgroundImage !== newUrl) {
-      body.style.backgroundImage = newUrl;
-    } else if (!imgUrl) {
-      body.style.backgroundImage = "";
-    }
-  }
-
-  if (meta && meta.imgUrl !== art) {
-    setArt(meta.imgUrl);
-    updateBackground(meta.imgUrl);
-    setShowFooter(true);
-  }
+    getMetadata().then((newMeta) => {
+      setMeta(newMeta);
+    });
+  }, [isLoading, meta, getMetadata]);
 
   return (
     <AppContext.Provider

@@ -1,14 +1,12 @@
 import { Howl } from "howler";
 import Head from "next/head";
-import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Player, PlayerMeta } from "../components/Player";
 import { Loading, Pause, Play } from "../components/svg";
 import { Text1, Text2 } from "../components/Text";
 import { HOST_URL } from "../config";
-import { METADATA } from "../context";
-import { useAppContext } from "../context";
+import { METADATA, useLiveInfo, useMetadata } from "../context";
 
 export async function getServerSideProps() {
   const response = await fetch(`${HOST_URL}${METADATA.URL}`);
@@ -23,8 +21,45 @@ export async function getServerSideProps() {
 export default function PlayerPage(props) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const meta = useAppContext().meta || props.meta;
-  const t1 = meta ? meta.text1 || meta.trackName : "";
+  const [art, setArt] = React.useState(null);
+  const [meta, setMeta] = React.useState<any>(props.meta);
+  const { getMetadata, isLoading: isLoadingMeta } = useMetadata();
+  const { info } = useLiveInfo();
+
+  React.useEffect(() => {
+    const id = setInterval(() => {
+      if (isLoadingMeta) return;
+      getMetadata().then((newMeta) => {
+        if (JSON.stringify(newMeta) !== JSON.stringify(meta)) {
+          setMeta(newMeta);
+        }
+      });
+    }, METADATA.UPDATE_INTERVAL);
+
+    return () => clearInterval(id);
+  }, [isLoadingMeta, meta, getMetadata]);
+
+  const updateBackground = useCallback((imgUrl) => {
+    const body = document?.getElementsByTagName("body")[0];
+    if (!body) {
+      return;
+    }
+    const newUrl = `url("${imgUrl}")`;
+    if (body.style.backgroundImage !== newUrl) {
+      body.style.backgroundImage = newUrl;
+    } else if (!imgUrl) {
+      body.style.backgroundImage = "";
+    }
+  }, []);
+
+  useEffect(() => {
+    if (meta && meta.imgUrl !== art) {
+      setArt(meta.imgUrl);
+      updateBackground(meta.imgUrl);
+    }
+  }, [setArt, meta, updateBackground, art]);
+
+  const t1 = meta ? meta.text1 || info?.tracks?.current?.name : "";
   const t2 = meta ? meta.text2 : "";
 
   const link = meta ? meta.link : "";
