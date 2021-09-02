@@ -106,13 +106,13 @@ export const AppProvider = (props) => {
   const [lang, setLang] = useState("en");
   const [showFooter, setShowFooter] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
-  const { getMetadata, isLoading } = useMetadata();
+  const { getMetadata } = useMetadata();
 
   const [meta, setMeta] = React.useState<any>(props.meta);
 
   React.useEffect(() => {
     getMetadata().then(setMeta);
-  }, [isLoading, getMetadata]);
+  }, [getMetadata]);
 
   return (
     <AppContext.Provider
