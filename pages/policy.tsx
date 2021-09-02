@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { FestLayout } from "../components/Layout";
-import { useAppContext } from "../hooks";
+import { useAppContext } from "../context";
 
 const Pre = styled.pre`
   white-space: pre-wrap;

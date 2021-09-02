@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 
 import { HeaderItem } from "../../components/Layout";
-import { useAppContext } from "../../hooks";
+import { useAppContext } from "../../context";
 import { ICheckout } from "../../mongo";
 
 const Container = styled.div`

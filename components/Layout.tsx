@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import { useAppContext } from "../hooks";
+import { useAppContext } from "../context";
 
 export const MainLayout = styled.div`
   min-width: 100vw;

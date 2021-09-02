@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 export const METADATA = {
   URL: `/api/metadata`,
@@ -59,6 +59,10 @@ export const defaultAppContext = {
 };
 
 export const AppContext = React.createContext<IContext>(defaultAppContext);
+
+export const useAppContext = () => {
+  return useContext(AppContext);
+};
 
 export const AppProvider = (props) => {
   const [lang, setLang] = useState("en");

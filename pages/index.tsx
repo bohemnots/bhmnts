@@ -8,7 +8,7 @@ import { Loading, Pause, Play } from "../components/svg";
 import { Text1, Text2 } from "../components/Text";
 import { HOST_URL } from "../config";
 import { METADATA } from "../context";
-import { useAppContext } from "../hooks";
+import { useAppContext } from "../context";
 
 export async function getServerSideProps() {
   const response = await fetch(`${HOST_URL}${METADATA.URL}`);

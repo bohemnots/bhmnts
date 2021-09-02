@@ -6,7 +6,7 @@ import styled from "styled-components";
 import * as Yup from "yup";
 
 import { FestLayout } from "../components/Layout";
-import { useAppContext } from "../hooks";
+import { useAppContext } from "../context";
 
 const View = styled.div`
   display: flex;

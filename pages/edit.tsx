@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { HOST_URL } from "../config";
 import { IMeta, METADATA } from "../context";
-import { useAppContext } from "../hooks";
+import { useAppContext } from "../context";
 
 export async function getServerSideProps() {
   const response = await fetch(`${HOST_URL}${METADATA.URL}`);
