@@ -27,12 +27,8 @@ export default function PlayerPage(props) {
   const { info } = useLiveInfo();
 
   React.useEffect(() => {
-    getMetadata().then((newMeta) => {
-      if (JSON.stringify(newMeta) !== JSON.stringify(meta)) {
-        setMeta(newMeta);
-      }
-    });
-  }, [meta, getMetadata]);
+    getMetadata().then(setMeta);
+  }, [getMetadata]);
 
   const updateBackground = useCallback((imgUrl) => {
     const body = document?.getElementsByTagName("body")[0];

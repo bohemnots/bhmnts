@@ -111,10 +111,8 @@ export const AppProvider = (props) => {
   const [meta, setMeta] = React.useState<any>(props.meta);
 
   React.useEffect(() => {
-    getMetadata().then((newMeta) => {
-      setMeta(newMeta);
-    });
-  }, [isLoading, meta, getMetadata]);
+    getMetadata().then(setMeta);
+  }, [isLoading, getMetadata]);
 
   return (
     <AppContext.Provider
