@@ -198,6 +198,10 @@ export default function Buy() {
                   const reader = new FileReader();
                   const file = e.target?.files?.[0];
                   if (file) {
+                    if (file.size / 1024 > 5000) {
+                      alert("file is too large, try files smaller than 5mb");
+                      return;
+                    }
                     reader.onloadend = () => {
                       setFieldValue("file", reader.result);
                     };
