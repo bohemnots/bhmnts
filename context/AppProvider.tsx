@@ -34,24 +34,16 @@ export interface IMeta {
 
 interface IContext {
   isLoading: boolean;
-  showFooter: boolean;
-  showHeader: boolean;
   setLoading: (value) => void;
-  setShowFooter: (val: boolean) => void;
-  setShowHeader: (val: boolean) => void;
   setLang: (value) => void;
   lang: string;
 }
 
 export const defaultAppContext = {
   isLoading: false,
-  showFooter: false,
-  showHeader: false,
   setLoading(value) {
     this.isLoading = value;
   },
-  setShowFooter: (val: boolean) => {},
-  setShowHeader: (val: boolean) => {},
   setLang: (_value) => {},
   lang: "",
   meta: {},
@@ -88,17 +80,11 @@ export const useLiveInfo = () => {
 
 export const AppProvider = (props) => {
   const [lang, setLang] = useState("en");
-  const [showFooter, setShowFooter] = useState(false);
-  const [showHeader, setShowHeader] = useState(true);
 
   return (
     <AppContext.Provider
       value={{
         ...defaultAppContext,
-        showFooter,
-        setShowFooter: (val) => setShowFooter(val),
-        setShowHeader: (val) => setShowHeader(val),
-        showHeader,
         lang,
         setLang,
       }}

@@ -69,9 +69,6 @@ export default function Ticket(props) {
   const { checkoutId } = router.query || {};
   const [checkout, setCheckout] = useState<ICheckout | null>(null);
   const ctx = useAppContext();
-  useEffect(() => {
-    ctx.setShowHeader(false);
-  }, [ctx]);
 
   useEffect(() => {
     if (!checkoutId) {

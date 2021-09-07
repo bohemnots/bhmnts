@@ -140,10 +140,6 @@ export default function Buy() {
     location.href = data.link;
   }, []);
 
-  useEffect(() => {
-    ctx.setShowHeader(false);
-  });
-
   const isValid = (values) => {
     return !!(values.name && values.surname && values.email && values.photo);
   };

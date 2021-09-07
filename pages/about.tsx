@@ -11,11 +11,6 @@ const P = styled.p`
 const About = (props) => {
   const ctx = useAppContext();
 
-  React.useEffect(() => {
-    ctx.setShowFooter(false);
-    ctx.setShowHeader(false);
-  });
-
   return (
     <FestLayout className={props.className}>
       <P>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import { FestLayout } from "../components/Layout";
@@ -13,9 +13,6 @@ const Pre = styled.pre`
 
 export default function Policy(props) {
   const ctx = useAppContext();
-
-  ctx.setShowFooter(false);
-  ctx.setShowHeader(false);
 
   return (
     <FestLayout className={props.className}>

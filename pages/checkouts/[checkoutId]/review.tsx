@@ -64,11 +64,6 @@ export const CheckoutReview = (props) => {
   const ctx = useAppContext();
 
   useEffect(() => {
-    ctx.setShowFooter(false);
-    ctx.setShowHeader(false);
-  }, [ctx]);
-
-  useEffect(() => {
     (async () => {
       if (!checkoutId) {
         return;

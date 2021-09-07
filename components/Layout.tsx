@@ -79,11 +79,6 @@ const Title = styled.div`
 export const FestLayout = (props) => {
   const ctx = useAppContext();
 
-  useEffect(() => {
-    ctx.setShowHeader(false);
-    ctx.setShowFooter(false);
-  });
-
   return (
     <Container className={props.className}>
       <Header>
