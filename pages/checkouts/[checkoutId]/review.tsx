@@ -144,8 +144,12 @@ export const CheckoutReview = (props) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button onClick={() => update("approved")}>Approve</button>
-          <button onClick={() => update("rejected")}>Reject</button>
+          {checkout.status === "success" ? (
+            <>
+              <button onClick={() => update("approved")}>Approve</button>
+              <button onClick={() => update("rejected")}>Reject</button>
+            </>
+          ) : null}
           {checkout.status === "approved" ? (
             <button onClick={() => update("refunded")}>Refund</button>
           ) : null}
