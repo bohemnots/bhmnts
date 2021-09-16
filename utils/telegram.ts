@@ -45,9 +45,10 @@ export const failedAfterApprove = async (
     await bot.sendMessage(
       TELEGRAM.CHAT_ID,
       [
-        `Checkout have been approved but failed to deposit`,
+        `Payment failed for this checkout`,
         `${checkout.name} ${checkout.surname}`,
         `${checkout.email}`,
+        `\`${checkout._id}\``,
         `${host || HOST_URL}/checkouts/${checkout._id}/review`,
         `${JSON.stringify(details, null, 2)}`,
       ].join("\n"),
