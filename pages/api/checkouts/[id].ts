@@ -78,7 +78,9 @@ export default async function handler(
             checkout.details.Amount
           );
           await updateCheckout(checkoutId, { confirm: confirmResponse });
-          if (!["00", "07"].includes(confirmResponse.ResponseCode)) {
+          if (["00", "07", "05"].includes(confirmResponse.ResponseCode)) {
+            await sendApprove(checkout.email, checkoutId, notes);
+          } else {
             failedAfterApprove(checkout, confirmResponse)
               .catch((err) => console.error(err))
               .then(() => {
@@ -86,8 +88,6 @@ export default async function handler(
                   `Unknown response,  ${JSON.stringify(confirmResponse)}`
                 );
               });
-          } else {
-            await sendApprove(checkout.email, checkoutId, notes);
           }
         } else if (status === "refunded") {
           const refundResponse = await AmeriaClient.cancelPayment(paymentId);
