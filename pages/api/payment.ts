@@ -32,7 +32,6 @@ handler.get(async (req, res) => {
     try {
       const checkout = await getCheckout(checkoutId);
       const details = await client.getPaymentDetails(paymentID.toString());
-      telegram.newRequest(checkout);
       await updateCheckout(checkoutId, {
         details,
         status: successCodes.includes(details.ResponseCode)
@@ -43,6 +42,8 @@ handler.get(async (req, res) => {
       if (successCodes.includes(details.ResponseCode)) {
         res.redirect(`/tickets/${checkoutId}`);
         return;
+      } else {
+        telegram.failedAfterApprove(checkout, details);
       }
 
       res.redirect(`/tickets/${checkoutId}`);
