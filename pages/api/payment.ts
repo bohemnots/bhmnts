@@ -40,6 +40,7 @@ handler.get(async (req, res) => {
       });
 
       if (successCodes.includes(details.ResponseCode)) {
+        telegram.newRequest(checkout);
         res.redirect(`/tickets/${checkoutId}`);
         return;
       } else {
