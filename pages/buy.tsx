@@ -1,7 +1,7 @@
 import { Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import * as Yup from "yup";
 
@@ -123,22 +123,31 @@ const StyledAbout = styled(About)`
 `;
 
 export default function Buy() {
-  const ctx = useAppContext();
+  const [isLoading, setIsLoading] = useState(false);
   const ref = useRef<HTMLInputElement>(null);
-  const buy = useCallback(async (values) => {
-    const form = new FormData();
-    form.append("name", values.name);
-    form.append("surname", values.surname);
-    form.append("email", (values.email + "").trim());
-    form.append("photo", values.photo);
 
-    const response = await fetch("/api/ticket", {
-      method: "POST",
-      body: form,
-    });
-    const data = await response.json();
-    location.href = data.link;
-  }, []);
+  const buy = useCallback(
+    async (values) => {
+      setIsLoading(true);
+      try {
+        const form = new FormData();
+        form.append("name", values.name);
+        form.append("surname", values.surname);
+        form.append("email", (values.email + "").trim());
+        form.append("photo", values.photo);
+
+        const response = await fetch("/api/ticket", {
+          method: "POST",
+          body: form,
+        });
+        const data = await response.json();
+        location.href = data.link;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [setIsLoading]
+  );
 
   const isValid = (values) => {
     return !!(values.name && values.surname && values.email && values.photo);
@@ -244,8 +253,8 @@ export default function Buy() {
               <Error>{errors.photo || " "}</Error>
 
               <NextButton
-                disabled={!isValid(values) || isSubmitting}
-                className={isValid(values) ? "" : "disabled"}
+                disabled={!isValid(values) || isLoading}
+                className={!isValid(values) || isLoading ? "disabled" : ""}
                 onClick={() => buy(values)}
               >
                 {"next >"}
