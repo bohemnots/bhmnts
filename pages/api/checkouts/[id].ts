@@ -80,8 +80,9 @@ export default async function handler(
             console.error(
               `Unknown response,  ${JSON.stringify(confirmResponse)}`
             );
+          } else {
+            await sendApprove(checkout.email, checkoutId, notes);
           }
-          await sendApprove(checkout.email, checkoutId, notes);
         } else if (status === "refunded") {
           const refundResponse = await AmeriaClient.cancelPayment(paymentId);
           await updateCheckout(checkoutId, { refund: refundResponse });
