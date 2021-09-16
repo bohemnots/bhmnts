@@ -25,7 +25,7 @@ export const sendDeny = async (email: string, notes: string) => {
 export const sendApprove = (
   email: string,
   checkoutId: string,
-  notes: String
+  notes?: String
 ) => {
   const qrCodeUrl = getTicketUrl(checkoutId);
   return SendGrid.send({

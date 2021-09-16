@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "NODE_OPTIONS='--max_old_space_size=2560' next build",
-    "dev": "NODE_OPTIONS='--inspect' next dev",
+    "dev": "PORT=3050 NODE_OPTIONS='--inspect' next dev",
     "export": "NODE_OPTIONS='--inspect' next export",
     "lint": "next lint",
     "start": "NODE_OPTIONS='--max_old_space_size=2560' next start"

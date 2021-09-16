@@ -40,6 +40,7 @@ export interface ICheckout {
   createdAt?: Date;
   updatedAt?: Date;
   status?: string;
+  notes?: string;
   init?: IInitPaymentResponse;
   details?: IPaymentDetailsResponse;
 }
