@@ -36,6 +36,31 @@ export const newRequest = async (checkout, host?: string) => {
   }
 };
 
+export const failedAfterApprove = async (
+  checkout,
+  details: any,
+  host?: string
+) => {
+  try {
+    await bot.sendMessage(
+      TELEGRAM.CHAT_ID,
+      [
+        `Checkout have been approved but failed to deposit`,
+        `${checkout.name} ${checkout.surname}`,
+        `${checkout.email}`,
+        `${host || HOST_URL}/checkouts/${checkout._id}/review`,
+        `${JSON.stringify(details, null, 2)}`,
+      ].join("\n"),
+      {
+        disable_web_page_preview: true,
+        disable_notification: !config.IS_PROD,
+      }
+    );
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const ameriaResponse = async (checkout, response) => {
   try {
     await bot.sendMessage(

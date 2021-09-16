@@ -16,6 +16,8 @@ export const getTicket = async (req, res) => {
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
+import { failedAfterApprove } from "../../../utils/telegram";
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
@@ -77,9 +79,13 @@ export default async function handler(
           );
           await updateCheckout(checkoutId, { confirm: confirmResponse });
           if (!["00", "07"].includes(confirmResponse.ResponseCode)) {
-            console.error(
-              `Unknown response,  ${JSON.stringify(confirmResponse)}`
-            );
+            failedAfterApprove(checkout, confirmResponse)
+              .catch((err) => console.error(err))
+              .then(() => {
+                console.error(
+                  `Unknown response,  ${JSON.stringify(confirmResponse)}`
+                );
+              });
           } else {
             await sendApprove(checkout.email, checkoutId, notes);
           }
