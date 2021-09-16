@@ -1,7 +1,13 @@
 import { Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import * as Yup from "yup";
 
@@ -22,7 +28,9 @@ const View = styled.div`
   }
 `;
 
-const NextButton = styled.button`
+interface NextButtonProps {}
+
+const NextButton = styled.button<NextButtonProps>`
   font-size: 11pt;
   color: white;
   cursor: pointer;
@@ -37,6 +45,25 @@ const NextButton = styled.button`
   border-color: black;
   &.disabled {
     opacity: 0.5;
+  }
+
+  &.loading {
+    @keyframes loading {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    animation: loading;
+    animation-duration: 0.9s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
   }
 `;
 
@@ -254,7 +281,9 @@ export default function Buy() {
 
               <NextButton
                 disabled={!isValid(values) || isLoading}
-                className={!isValid(values) || isLoading ? "disabled" : ""}
+                className={
+                  !isValid(values) ? "disabled" : isLoading ? "loading" : ""
+                }
                 onClick={() => buy(values)}
               >
                 {"next >"}
