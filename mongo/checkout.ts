@@ -3,8 +3,16 @@ import {
   IPaymentDetailsResponse,
 } from "@ameria/vpos-sdk";
 import { ObjectId } from "mongodb";
+import * as Yup from "yup";
 
+import { sendApprove } from "../utils/email";
 import { checkoutCollection } from "./client";
+
+const CheckoutSchema = Yup.object({
+  email: Yup.string().required(),
+  name: Yup.string().required(),
+  surname: Yup.string().required(),
+});
 
 export const getCheckout = async (id: string): Promise<ICheckout> => {
   const doc = await checkoutCollection.findOne({ _id: new ObjectId(id) });
@@ -12,15 +20,24 @@ export const getCheckout = async (id: string): Promise<ICheckout> => {
 };
 
 export const createCheckout = async (data): Promise<ICheckout> => {
+  const validData = await CheckoutSchema.validate(data);
   const checkout = await checkoutCollection.insertOne({
-    name: data.name,
-    surname: data.surname,
-    email: data.email,
+    ...validData,
     createdAt: new Date(),
     updatedAt: new Date(),
   });
   const id = new ObjectId(checkout.insertedId).toString();
   return getCheckout(id);
+};
+
+export const createApprovedCheckout = async (data): Promise<ICheckout> => {
+  const checkout = await createCheckout({
+    ...data,
+    status: "approved",
+    onDoor: true,
+  });
+  await sendApprove(checkout.email, checkout._id + "");
+  return checkout;
 };
 
 export const updateCheckout = async (id, data): Promise<ICheckout> => {
@@ -34,11 +51,11 @@ export const updateCheckout = async (id, data): Promise<ICheckout> => {
 
 export interface ICheckout {
   _id: ObjectId;
-  name?: string;
-  surname?: string;
-  email?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  name: string;
+  surname: string;
+  email: string;
+  createdAt: Date;
+  updatedAt: Date;
   status?: string;
   notes?: string;
   init?: IInitPaymentResponse;
