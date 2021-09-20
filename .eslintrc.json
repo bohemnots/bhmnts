@@ -12,7 +12,17 @@
       "error"
     ],
     "simple-import-sort/imports": "error",
-    "react/display-name": ["off"],
-    "no-unused-vars": ["error"]
+    "react/display-name": [
+      "off"
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "ignoreRestSiblings": true
+      }
+    ]
   }
 }
