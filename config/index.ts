@@ -15,6 +15,8 @@ type TEnvType = {
   S3_ENDPOINT: string;
   S3_REGION?: string;
   BUCKET_NAME?: string;
+  GOOGLE_CLIENT_ID: string;
+  GOOGLE_CLIENT_SECRET: string;
 };
 
 const required = [
@@ -69,3 +71,6 @@ export const S3 = {
   REGION: env.S3_REGION || "eu-central-1",
   BUCKET: env.BUCKET_NAME || "bohemnots",
 };
+
+export const GOOGLE_CLIENT_ID = env.GOOGLE_CLIENT_ID;
+export const GOOGLE_CLIENT_SECRET = env.GOOGLE_CLIENT_SECRET;

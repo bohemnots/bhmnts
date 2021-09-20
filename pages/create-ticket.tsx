@@ -1,10 +1,9 @@
+import { FestLayout } from "components/Layout";
 import { Formik } from "formik";
 import Image from "next/image";
 import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
 import * as Yup from "yup";
-
-import { FestLayout } from "../components/Layout";
 
 const View = styled.div`
   display: flex;
@@ -116,7 +115,6 @@ export default function SendTicket() {
         form.append("surname", values.surname);
         form.append("email", (values.email + "").trim());
         form.append("photo", values.photo);
-        form.append("password", values.password + "");
 
         const response = await fetch("/api/create-ticket", {
           method: "POST",
@@ -134,24 +132,17 @@ export default function SendTicket() {
   );
 
   const isValid = (values) => {
-    return !!(
-      values.name &&
-      values.surname &&
-      values.email &&
-      values.photo &&
-      values.password
-    );
+    return !!(values.name && values.surname && values.email && values.photo);
   };
 
   return (
-    <FestLayout>
+    <FestLayout showSignIn={true}>
       <Formik
         onSubmit={buy}
         initialValues={{
           name: "",
           surname: "",
           email: "",
-          password: "",
           file: null,
           photo: null,
         }}
@@ -183,15 +174,6 @@ export default function SendTicket() {
                 required
               ></Input>
               <Error>{touched.email ? errors.email || " " : " "}</Error>
-
-              <Label htmlFor="password">{"* password"}</Label>
-              <Input
-                onChange={(e) => setFieldValue("password", e.target.value)}
-                name="password"
-                type="password"
-                required
-              ></Input>
-              <Error>{touched.password ? errors.password || " " : " "}</Error>
 
               <Label htmlFor="photo">{"* photo"}</Label>
               <input

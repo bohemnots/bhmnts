@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { useAppContext } from "../context";
+import { AuthView } from "./AuthView";
 
 export const MainLayout = styled.div`
   min-width: 100vw;
@@ -76,7 +77,12 @@ const Title = styled.div`
   text-align: center;
 `;
 
-export const FestLayout = (props) => {
+interface FestLayoutProps {
+  showSignIn?: boolean;
+  className?: string;
+}
+
+export const FestLayout: React.FC<FestLayoutProps> = (props) => {
   const ctx = useAppContext();
 
   return (
@@ -87,6 +93,7 @@ export const FestLayout = (props) => {
           <LinkA onClick={() => ctx.setLang("en")}>EN</LinkA>
         </HeaderItem>
         <HeaderItem>
+          {props.showSignIn ? <AuthView /> : null}
           <Link href="/">GO TO RADIO</Link>
         </HeaderItem>
       </Header>

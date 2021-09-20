@@ -1,9 +1,9 @@
 import { readFileSync } from "fs";
 import type { NextApiRequest, NextApiResponse } from "next";
 import next from "next";
+import { getSession } from "next-auth/react";
 import nc from "next-connect";
 
-import { PASSWORD } from "../../config";
 import { createApprovedCheckout, withConnection } from "../../mongo";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
@@ -21,13 +21,18 @@ export const config = {
 };
 
 handler.post(async (req, res) => {
-  return withConnection(async () => {
-    if (PASSWORD) {
-      if (req.body.password + "" !== PASSWORD) {
-        throw new Error(`invalid password`);
-      }
-    }
+  return withConnection(async (client) => {
     try {
+      const settings = await client.settings.findOne<{ emails: string[] }>({
+        _id: "faceControlEmails",
+      });
+      const session = await getSession({ req });
+      const email = session?.user?.email;
+      if (settings?.emails?.length) {
+        if (!settings?.emails.includes(email || "")) {
+          throw new Error(`you are not allowed to create tickets`);
+        }
+      }
       const newData = {
         name: req.body.name + "",
         surname: req.body.surname + "",
