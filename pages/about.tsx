@@ -2,15 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 import { FestLayout } from "../components/Layout";
-import { useAppContext } from "../context";
 
 const P = styled.p`
   font-size: 14px;
 `;
 
 const About = (props) => {
-  const ctx = useAppContext();
-
   return (
     <FestLayout className={props.className}>
       <P>

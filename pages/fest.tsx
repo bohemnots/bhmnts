@@ -5,7 +5,6 @@ import React from "react";
 import styled from "styled-components";
 
 import { FestLayout } from "../components/Layout";
-import { useAppContext } from "../context";
 
 const View = styled.div`
   width: 100%;

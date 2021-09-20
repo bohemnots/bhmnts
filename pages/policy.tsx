@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import { FestLayout } from "../components/Layout";
-import { useAppContext } from "../context";
 
 const Pre = styled.pre`
   white-space: pre-wrap;
@@ -12,8 +11,6 @@ const Pre = styled.pre`
 `;
 
 export default function Policy(props) {
-  const ctx = useAppContext();
-
   return (
     <FestLayout className={props.className}>
       <Pre>

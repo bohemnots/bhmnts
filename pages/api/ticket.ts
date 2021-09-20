@@ -13,7 +13,6 @@ import {
 } from "../../config";
 import upload from "../../middleware/upload";
 import {
-  connect,
   createCheckout,
   nextOrderId,
   updateCheckout,

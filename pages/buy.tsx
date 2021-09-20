@@ -1,18 +1,11 @@
 import { Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
 import * as Yup from "yup";
 
 import { FestLayout } from "../components/Layout";
-import { useAppContext } from "../context";
 
 const View = styled.div`
   display: flex;
@@ -193,7 +186,7 @@ export default function Buy() {
         }}
         validationSchema={BuyTicket}
       >
-        {({ values, errors, touched, setFieldValue, isSubmitting }) => {
+        {({ values, errors, touched, setFieldValue }) => {
           return (
             <View>
               <Label htmlFor="name">{"* name"}</Label>

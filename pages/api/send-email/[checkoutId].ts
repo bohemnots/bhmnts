@@ -1,12 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import * as config from "../../../config";
-import {
-  getCheckout,
-  getMetadata,
-  updateMetadata,
-  withConnection,
-} from "../../../mongo";
+import { getCheckout, withConnection } from "../../../mongo";
 import { sendApprove } from "../../../utils/email";
 
 export default async function handler(
