@@ -93,8 +93,7 @@ export const FestLayout: React.FC<FestLayoutProps> = (props) => {
           <LinkA onClick={() => ctx.setLang("en")}>EN</LinkA>
         </HeaderItem>
         <HeaderItem>
-          {props.showSignIn ? <AuthView /> : null}
-          <Link href="/">GO TO RADIO</Link>
+          {props.showSignIn ? <AuthView /> : <Link href="/">GO TO RADIO</Link>}
         </HeaderItem>
       </Header>
       <View>
