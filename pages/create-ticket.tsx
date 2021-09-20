@@ -1,7 +1,6 @@
 import { Formik } from "formik";
 import Image from "next/image";
-import Link from "next/link";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
 import * as Yup from "yup";
 
@@ -112,18 +111,16 @@ export default function SendTicket() {
     async (values) => {
       setIsLoading(true);
       try {
+        const form = new FormData();
+        form.append("name", values.name);
+        form.append("surname", values.surname);
+        form.append("email", (values.email + "").trim());
+        form.append("photo", values.photo);
+        form.append("password", values.password + "");
+
         const response = await fetch("/api/create-ticket", {
           method: "POST",
-          body: JSON.stringify({
-            name: values.name,
-            surname: values.surname,
-            password: values.password + "",
-            email: (values.email + "").trim(),
-            photo: values.photo,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
+          body: form,
         });
         const data = await response.json();
         if (data.checkout?._id) {
@@ -160,7 +157,7 @@ export default function SendTicket() {
         }}
         validationSchema={BuyTicket}
       >
-        {({ values, errors, touched, setFieldValue, isSubmitting }) => {
+        {({ values, errors, touched, setFieldValue }) => {
           return (
             <View>
               <Label htmlFor="name">{"* name"}</Label>
