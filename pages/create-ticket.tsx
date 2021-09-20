@@ -1,9 +1,25 @@
 import { FestLayout } from "components/Layout";
-import { Formik } from "formik";
+import { Formik, FormikProps } from "formik";
 import Image from "next/image";
 import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
 import * as Yup from "yup";
+
+const initialValues = {
+  name: "",
+  surname: "",
+  email: "",
+  file: null,
+  photo: null,
+};
+
+interface FormikValues {
+  name: string;
+  surname: string;
+  email: string;
+  file: any;
+  photo: any;
+}
 
 const View = styled.div`
   display: flex;
@@ -105,12 +121,14 @@ const Remove = styled.button`
 export default function SendTicket() {
   const [isLoading, setIsLoading] = useState(false);
   const ref = useRef<HTMLInputElement>(null);
+  const formik = useRef<FormikProps<FormikValues> | null>();
 
   const buy = useCallback(
     async (values) => {
       setIsLoading(true);
       try {
         const form = new FormData();
+
         form.append("name", values.name);
         form.append("surname", values.surname);
         form.append("email", (values.email + "").trim());
@@ -123,6 +141,11 @@ export default function SendTicket() {
         const data = await response.json();
         if (data.checkout?._id) {
           alert(`ticket have been sent to '${data.checkout.email}'`);
+          console.warn(formik.current);
+          if (formik.current) {
+            formik.current.resetForm({ values: initialValues });
+            formik.current.setStatus({ complete: true });
+          }
         }
       } finally {
         setIsLoading(false);
@@ -138,6 +161,8 @@ export default function SendTicket() {
   return (
     <FestLayout showSignIn={true}>
       <Formik
+        enableReinitialize
+        innerRef={(_ref) => (formik.current = _ref)}
         onSubmit={buy}
         initialValues={{
           name: "",
@@ -148,7 +173,7 @@ export default function SendTicket() {
         }}
         validationSchema={BuyTicket}
       >
-        {({ values, errors, touched, setFieldValue }) => {
+        {({ values, errors, touched, setFieldValue, submitForm }) => {
           return (
             <View>
               <Label htmlFor="name">{"* name"}</Label>
@@ -235,11 +260,11 @@ export default function SendTicket() {
               <Error>{errors.photo || " "}</Error>
 
               <NextButton
-                disabled={!isValid(values) || isLoading}
+                disabled={!isValid(values)}
                 className={
                   !isValid(values) ? "disabled" : isLoading ? "loading" : ""
                 }
-                onClick={() => buy(values)}
+                onClick={submitForm}
               >
                 {"next >"}
               </NextButton>

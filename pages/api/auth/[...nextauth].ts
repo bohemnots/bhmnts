@@ -6,6 +6,9 @@ import Google from "next-auth/providers/google";
 
 export default async function auth(req, res) {
   return await NextAuth(req, res, {
+    jwt: {
+      secret: "not-important-yet",
+    },
     session: {
       jwt: true,
       maxAge: 30 * 24 * 60 * 60, // 30 days
