@@ -17,6 +17,7 @@ type TEnvType = {
   BUCKET_NAME?: string;
   GOOGLE_CLIENT_ID: string;
   GOOGLE_CLIENT_SECRET: string;
+  CODESPACE_NAME: string;
 };
 
 const required = [
@@ -24,7 +25,6 @@ const required = [
   "AMERIA_CLIENT_ID",
   "AMERIA_UN",
   "AMERIA_PW",
-  "HOST_URL",
   "SENDGRID_SECRET",
   "TELEGRAM_TOKEN",
   "TELEGRAM_CHAT_ID",
@@ -53,7 +53,10 @@ export const AMERIA_UN = env.AMERIA_UN;
 export const AMERIA_PW = env.AMERIA_PW;
 export const AMERIA_IS_TEST = env.AMERIA_IS_TEST;
 
-export const HOST_URL = env.HOST_URL;
+export const HOST_URL =
+  env.HOST_URL || env.CODESPACE_NAME
+    ? `https://${env.CODESPACE_NAME}-${process.env.PORT}.githubpreview.dev`
+    : "";
 
 export const SENDGRID_SECRET = env.SENDGRID_SECRET;
 
