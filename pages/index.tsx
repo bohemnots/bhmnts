@@ -31,8 +31,8 @@ export default function PlayerPage(props) {
     if (!body) {
       return;
     }
-    const newUrl = `url("${imgUrl}")`;
-    if (body.style.backgroundImage !== newUrl) {
+    const newUrl = imgUrl ? `url("${imgUrl}")` : "";
+    if (newUrl && body.style.backgroundImage !== newUrl) {
       body.style.backgroundImage = newUrl;
     } else if (!imgUrl) {
       body.style.backgroundImage = "";
