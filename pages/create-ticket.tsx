@@ -1,9 +1,10 @@
-import { FestLayout } from "components/Layout";
 import { Formik, FormikProps } from "formik";
 import Image from "next/image";
 import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
 import * as Yup from "yup";
+
+import { FestLayout } from "../components";
 
 const initialValues = {
   name: "",

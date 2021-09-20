@@ -62,6 +62,7 @@ export default function PlayerPage(props) {
   const size = parseFloat(meta.size || "10"); // to hide icon until color available
 
   const audio = useMemo(() => {
+    console.log(meta);
     return new Howl({
       src: meta.streamUrl,
       html5: true,
