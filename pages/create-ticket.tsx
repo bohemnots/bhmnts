@@ -4,7 +4,7 @@ import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
 import * as Yup from "yup";
 
-import { FestLayout } from "../components";
+import { FestLayout } from "../components/Layout";
 
 const initialValues = {
   name: "",
