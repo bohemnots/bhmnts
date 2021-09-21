@@ -1,5 +1,4 @@
 import { Client } from "@ameria/vpos-sdk";
-import assert from "assert";
 import type { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
 
@@ -9,7 +8,11 @@ import {
   AMERIA_PW,
   AMERIA_UN,
 } from "../../config";
-import { getCheckout, updateCheckout, withConnection } from "../../mongo";
+import {
+  getCheckoutByPaymentID,
+  updateCheckout,
+  withConnection,
+} from "../../mongo";
 import * as telegram from "../../utils/telegram";
 
 const client = new Client({
@@ -25,12 +28,11 @@ const handler = nc<NextApiRequest, NextApiResponse>();
 
 handler.get(async (req, res) => {
   return withConnection(async () => {
-    const { paymentID, opaque } = req.query; // paymentID ameria payment id
-    const { checkoutId } = JSON.parse(opaque.toString());
-    assert.ok(checkoutId, new Error("missing 'checkoutId'"));
-
+    const { paymentID } = req.query; // paymentID ameria payment id
+    let checkoutId = "";
     try {
-      const checkout = await getCheckout(checkoutId);
+      const checkout = await getCheckoutByPaymentID(paymentID + "");
+      checkoutId = checkout._id + "";
       const details = await client.getPaymentDetails(paymentID.toString());
       await updateCheckout(checkoutId, {
         details,
