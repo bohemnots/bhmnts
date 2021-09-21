@@ -1,10 +1,11 @@
+import { HOST_URL } from "config";
+import { getCheckout, updateCheckout, withConnection } from "mongo";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { getSession } from "next-auth/react";
 import qrCode from "qrcode";
-
-import { HOST_URL } from "../../../config";
-import * as config from "../../../config";
-import { getCheckout, updateCheckout, withConnection } from "../../../mongo";
-import { AmeriaClient } from "../../../utils/ameria";
-import { sendApprove, sendDeny } from "../../../utils/email";
+import { AmeriaClient } from "utils/ameria";
+import { sendApprove, sendDeny } from "utils/email";
+import { failedAfterApprove } from "utils/telegram";
 
 const VALID = ["approved", "rejected"];
 
@@ -14,15 +15,13 @@ export const getTicket = async (req, res) => {
   return await qrCode.toFileStream(res, url, { scale: 20 });
 };
 
-import type { NextApiRequest, NextApiResponse } from "next";
-
-import { failedAfterApprove } from "../../../utils/telegram";
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  return withConnection(async () => {
+  return withConnection(async (client) => {
+    const session = await getSession({ req });
+
     if (req.method === "GET") {
       if (!req.query.id || req.query.id === "undefined") {
         throw new Error(`[id] is missing in the URL`);
@@ -43,11 +42,19 @@ export default async function handler(
       try {
         const checkoutId = req.query.id.toString();
         const status = req.body.status;
-        const password = req.body.password;
         const notes = req.body.notes;
-        if (config.PASSWORD) {
-          if (config.PASSWORD !== password) {
-            throw new Error(`Invalid password`);
+
+        if (session?.user) {
+          const settings = await client.settings.findOne<{
+            emails: string[];
+          }>({
+            _id: "faceControlEmails",
+          });
+          const email = session?.user?.email;
+          if (settings?.emails?.length) {
+            if (!settings?.emails.includes(email || "")) {
+              throw new Error(`you are not allowed to create tickets`);
+            }
           }
         }
 

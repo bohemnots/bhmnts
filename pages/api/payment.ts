@@ -1,19 +1,9 @@
 import { Client } from "@ameria/vpos-sdk";
+import { AMERIA_CLIENT_ID, AMERIA_IS_TEST, AMERIA_PW, AMERIA_UN } from "config";
+import { getCheckoutByPaymentID, updateCheckout, withConnection } from "mongo";
 import type { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
-
-import {
-  AMERIA_CLIENT_ID,
-  AMERIA_IS_TEST,
-  AMERIA_PW,
-  AMERIA_UN,
-} from "../../config";
-import {
-  getCheckoutByPaymentID,
-  updateCheckout,
-  withConnection,
-} from "../../mongo";
-import * as telegram from "../../utils/telegram";
+import * as telegram from "utils/telegram";
 
 const client = new Client({
   clientId: AMERIA_CLIENT_ID,
@@ -52,7 +42,7 @@ handler.get(async (req, res) => {
       res.redirect(`/tickets/${checkoutId}`);
     } catch (err) {
       console.error(err);
-      res.redirect(`/tickets/${checkoutId}`);
+      res.redirect(checkoutId ? `/tickets/${checkoutId}` : "/404");
     }
   });
 });
