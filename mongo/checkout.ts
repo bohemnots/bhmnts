@@ -22,7 +22,9 @@ export const getCheckout = async (id: string): Promise<ICheckout> => {
 export const getCheckoutByPaymentID = async (
   id: string
 ): Promise<ICheckout> => {
-  const doc = await checkoutCollection.findOne({ "init.PaymentID": id });
+  const doc = await checkoutCollection.findOne({
+    "init.PaymentID": new RegExp(id, "i"),
+  });
   return doc as ICheckout;
 };
 
