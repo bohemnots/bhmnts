@@ -7,7 +7,7 @@ import { AmeriaClient } from "utils/ameria";
 import { sendApprove, sendDeny } from "utils/email";
 import { failedAfterApprove } from "utils/telegram";
 
-const VALID = ["approved", "rejected"];
+const VALID = ["approved", "rejected", "refunded"];
 
 export const getTicket = async (req, res) => {
   const checkoutId = req.params.id;
