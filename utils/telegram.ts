@@ -10,19 +10,14 @@ const bot = new TelegramBot(config.TELEGRAM.TOKEN || "", {});
 export const newRequest = async (checkout, host?: string) => {
   try {
     const imgUrl = `https://${S3.ENDPOINT}/${S3.BUCKET}/checkouts/${checkout._id}/photo.jpg`;
-    const out = await bot.sendPhoto(TELEGRAM.CHAT_ID, imgUrl);
-    await bot.editMessageCaption(
-      [
+    await bot.sendPhoto(TELEGRAM.CHAT_ID, imgUrl, {
+      caption: [
         `New purchase request from `,
         `${checkout.name} ${checkout.surname}`,
         `${checkout.email}`,
         `${host || HOST_URL}/checkouts/${checkout._id}/review`,
       ].join("\n"),
-      {
-        chat_id: TELEGRAM.CHAT_ID,
-        message_id: out.message_id,
-      }
-    );
+    });
   } catch (err) {
     console.error(err);
   }
