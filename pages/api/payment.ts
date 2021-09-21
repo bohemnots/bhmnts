@@ -23,6 +23,11 @@ handler.get(async (req, res) => {
     try {
       const checkout = await getCheckoutByPaymentID(paymentID + "");
       checkoutId = checkout._id + "";
+      if (!checkoutId) {
+        throw new Error(
+          `missing 'checkoutId', ${JSON.stringify(checkout, null, 2)}`
+        );
+      }
       const details = await client.getPaymentDetails(paymentID.toString());
       await updateCheckout(checkoutId, {
         details,
