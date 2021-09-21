@@ -7,14 +7,19 @@ import * as config from "../config";
 
 const bot = new TelegramBot(config.TELEGRAM.TOKEN || "", {});
 
+const getImgUrl = (id: string) =>
+  `https://${S3.ENDPOINT}/${S3.BUCKET}/checkouts/${id}/photo.jpg`;
+
 export const newRequest = async (checkout, host?: string) => {
   try {
-    const imgUrl = `https://${S3.ENDPOINT}/${S3.BUCKET}/checkouts/${checkout._id}/photo.jpg`;
+    const imgUrl = getImgUrl(checkout._id);
     await bot.sendPhoto(TELEGRAM.CHAT_ID, imgUrl, {
+      disable_notification: !config.IS_PROD,
       caption: [
         `New purchase request from `,
         `${checkout.name} ${checkout.surname}`,
         `${checkout.email}`,
+        `${checkout._id}`,
         `${host || HOST_URL}/checkouts/${checkout._id}/review`,
       ].join("\n"),
     });
@@ -29,21 +34,18 @@ export const failedAfterApprove = async (
   host?: string
 ) => {
   try {
-    await bot.sendMessage(
-      TELEGRAM.CHAT_ID,
-      [
+    const imgUrl = getImgUrl(checkout._id);
+    await bot.sendPhoto(TELEGRAM.CHAT_ID, imgUrl, {
+      disable_notification: !config.IS_PROD,
+      caption: [
         `Payment failed for this checkout`,
         `${checkout.name} ${checkout.surname}`,
         `${checkout.email}`,
-        `\`${checkout._id}\``,
+        `${checkout._id}`,
         `${host || HOST_URL}/checkouts/${checkout._id}/review`,
         `${JSON.stringify(details, null, 2)}`,
       ].join("\n"),
-      {
-        disable_web_page_preview: true,
-        disable_notification: !config.IS_PROD,
-      }
-    );
+    });
   } catch (err) {
     console.error(err);
   }
