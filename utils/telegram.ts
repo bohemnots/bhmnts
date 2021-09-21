@@ -4,7 +4,6 @@ import TelegramBot from "node-telegram-bot-api";
 
 import { HOST_URL, S3, TELEGRAM } from "../config";
 import * as config from "../config";
-import { getCheckout } from "../mongo";
 
 const bot = new TelegramBot(config.TELEGRAM.TOKEN || "", {});
 
