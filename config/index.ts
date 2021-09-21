@@ -54,9 +54,10 @@ export const AMERIA_PW = env.AMERIA_PW;
 export const AMERIA_IS_TEST = env.AMERIA_IS_TEST;
 
 export const HOST_URL =
-  env.HOST_URL || env.CODESPACE_NAME
+  env.HOST_URL ||
+  (env.CODESPACE_NAME
     ? `https://${env.CODESPACE_NAME}-${process.env.PORT}.githubpreview.dev`
-    : "";
+    : "");
 
 export const SENDGRID_SECRET = env.SENDGRID_SECRET;
 
