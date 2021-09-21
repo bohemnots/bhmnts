@@ -19,6 +19,13 @@ export const getCheckout = async (id: string): Promise<ICheckout> => {
   return doc as ICheckout;
 };
 
+export const getCheckoutByPaymentID = async (
+  id: string
+): Promise<ICheckout> => {
+  const doc = await checkoutCollection.findOne({ "init.PaymentID": id });
+  return doc as ICheckout;
+};
+
 export const createCheckout = async (data): Promise<ICheckout> => {
   const validData = await CheckoutSchema.validate(data);
   const checkout = await checkoutCollection.insertOne({
