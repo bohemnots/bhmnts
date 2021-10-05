@@ -1,6 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 
@@ -25,24 +23,6 @@ const P = styled.p`
 
   @media only screen and (max-width: 600px) {
     font-size: 16px;
-  }
-`;
-
-const BuyButton = styled.div`
-  text-align: center;
-  cursor: pointer;
-
-  & .disabled img {
-    filter: grayscale(100%);
-  }
-
-  a {
-    border-radius: 16px;
-    text-decoration: none;
-  }
-
-  img {
-    width: 250px;
   }
 `;
 
@@ -85,16 +65,6 @@ export default function FestDesc(props) {
             </P>
           ))}
       </View>
-      <BuyButton>
-        <Link href="/buy" passHref>
-          <Image
-            src="/buy-ticket.png"
-            alt={"Ticket Soon"}
-            width="250"
-            height="95"
-          />
-        </Link>
-      </BuyButton>
     </FestLayout>
   );
 }
