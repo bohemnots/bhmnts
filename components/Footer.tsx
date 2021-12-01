@@ -26,7 +26,7 @@ const Nav = styled.nav`
   text-align: right;
 
   .donate {
-    vertical-align: sub;
+    vertical-align: middle;
     padding-right: 20px;
   }
 
@@ -58,7 +58,7 @@ export default function Footer() {
   return (
     <Nav>
       <ul>
-        <li style={{ display: "none" }}>
+        <li>
           <a className={"donate"} href={pt} target={target} rel={rel}>
             <Image
               src="/images/donate.svg"
