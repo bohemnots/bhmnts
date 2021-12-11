@@ -63,7 +63,7 @@ export default function Footer() {
             <Image
               src="/images/donate.svg"
               width="60"
-              height="60"
+              height="20"
               alt="donate"
             />
           </a>
