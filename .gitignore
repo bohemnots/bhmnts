@@ -40,3 +40,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+.env
+package-lock.json
+yarn.lock
