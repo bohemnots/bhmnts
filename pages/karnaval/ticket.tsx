@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Formik, FormikProps } from "formik";
 import Link from "next/dist/client/link";
 import Image from "next/image";
