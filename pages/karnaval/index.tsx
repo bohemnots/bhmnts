@@ -20,7 +20,7 @@ const Heading = styled.p`
   font-size: 2em;
   color: ${purpleColor};
   @media (max-width: 768px) {
-    font-size: 1.7em;
+    font-size: 1.9em;
   }
 `;
 const CenteredWrapper = styled.div`
@@ -70,7 +70,8 @@ const Lineup = (props) => {
           Fairy tale is calling <br />
           For two days radio will be streamed from the hall named after
           Beethoven <br />
-          We will have radio shows, concerts, live sessions & screenings <br />
+          We will have radio shows <br />
+          concerts, live sessions & screenings <br />
           Program will be updated regularly
         </p>
         <P>
