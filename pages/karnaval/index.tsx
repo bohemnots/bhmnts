@@ -3,11 +3,25 @@ import React from "react";
 import styled from "styled-components";
 
 const linkStyle = { color: "white", cursor: "pointer" };
-const smallTextStyle = { fontSize: "0.6em" };
+const smallTextStyle = {
+  fontSize: "0.6em",
+  position: "relative",
+  top: "-14px",
+};
 const purpleColor = "#8800ff";
 const P = styled.p`
+  font-size: 1.6em;
+  color: ${purpleColor};
+  @media (max-width: 768px) {
+    font-size: 1.6em;
+  }
+`;
+const Heading = styled.p`
   font-size: 2em;
   color: ${purpleColor};
+  @media (max-width: 768px) {
+    font-size: 1.7em;
+  }
 `;
 const CenteredWrapper = styled.div`
   max-width: 90%;
@@ -16,6 +30,10 @@ const CenteredWrapper = styled.div`
   place-items: center;
   color: ${purpleColor};
   text-align: center;
+  margin-top: 10vh;
+  @media (max-width: 768px) {
+    margin-top: 1vh;
+  }
 `;
 const Container = styled.div`
   color: white;
@@ -23,11 +41,13 @@ const Container = styled.div`
   width: 100vw;
   min-height: 100vh;
   display: grid;
-  place-items: center;
+  place-items: start;
 `;
 
 const SmallText = (props) => {
-  return <span style={smallTextStyle}>{props.text}</span>;
+  return (
+    <span style={{ ...smallTextStyle, ...props.style }}>{props.text}</span>
+  );
 };
 const NextPageLink = () => {
   return (
@@ -42,19 +62,23 @@ const Lineup = (props) => {
   return (
     <Container>
       <CenteredWrapper className={props.className}>
-        <P style={{ color: purpleColor }}>
+        <Heading style={{ color: purpleColor, marginBottom: "0.1em" }}>
           Composers&apos; Union Dilijan <br />
           SEPTEMBER 2-4
-        </P>
+        </Heading>
         <p style={{ fontSize: "1em" }}>
+          Fairy tale is calling <br />
           For two days radio will be streamed from the hall named after
           Beethoven <br />
-          We will have radio shows, broadcasts, live sessions, screenings <br />
+          We will have radio shows, concerts, live sessions & screenings <br />
           Program will be updated regularly
         </p>
         <P>
-          dk.tsk <SmallText text={"[session]"} /> . VHSound & Ensemble . Diezel
-          Tea
+          VHSound & Ensemble <br />
+          dk.tsk 
+          <SmallText text={" / session"} style={{top:"unset"}} />
+          <br />
+          NODE . Diezel Tea
           <br />
           F.I.X
           <br />

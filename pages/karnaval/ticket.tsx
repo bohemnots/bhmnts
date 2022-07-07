@@ -12,6 +12,13 @@ const P = styled.p`
   font-size: 1.6em;
   color: ${purpleColor};
 `;
+const Heading = styled.p`
+  font-size: 2em;
+  color: ${purpleColor};
+  @media (max-width: 768px) {
+    font-size: 1.7em;
+  }
+`;
 const CenteredWrapper = styled.div`
   max-width: 90%;
   margin: 0 auto;
@@ -19,6 +26,10 @@ const CenteredWrapper = styled.div`
   place-items: center;
   color: ${purpleColor};
   text-align: center;
+  margin-top: 10vh;
+  @media (max-width: 768px) {
+    margin-top: 1vh;
+  }
 `;
 const Container = styled.div`
   color: white;
@@ -26,7 +37,7 @@ const Container = styled.div`
   width: 100vw;
   min-height: 100vh;
   display: grid;
-  place-items: center;
+  place-items: start;
 `;
 
 const initialValues = {
@@ -151,15 +162,13 @@ const Price = (props) => {
     <Container>
       <CenteredWrapper className={props.className}>
         <div>
-          <P style={{ color: purpleColor }}>
+          <Heading>
             Composers&apos; Union Dilijan <br />
             SEPTEMBER 2-4
-          </P>
+          </Heading>
           <P style={{ marginBottom: "5px", fontSize: "1.3em" }}>
-            200 limited edition tickets 5000amd <br />
-            +
-            <br />
-            FREE BUS
+            100 limited edition tickets 5000amd + free bus <br />
+            after 8000amd
           </P>
           <br />
         </div>
