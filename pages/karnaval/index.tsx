@@ -75,8 +75,8 @@ const Lineup = (props) => {
         </p>
         <P>
           VHSound & Ensemble <br />
-          dk.tsk 
-          <SmallText text={" / session"} style={{top:"unset"}} />
+          dk.tsk
+          <SmallText text={" / session"} style={{ top: "unset" }} />
           <br />
           NODE . Diezel Tea
           <br />
