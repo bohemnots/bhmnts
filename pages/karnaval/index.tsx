@@ -20,7 +20,7 @@ const Heading = styled.p`
   font-size: 2em;
   color: ${purpleColor};
   @media (max-width: 768px) {
-    font-size: 1.9em;
+    font-size: 3em;
   }
 `;
 const CenteredWrapper = styled.div`
