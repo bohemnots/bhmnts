@@ -227,7 +227,6 @@ export default function SendTicket() {
                 accept="image/jpeg"
                 type="file"
                 name="photo"
-                capture="user"
                 required
                 hidden={!!values.photo}
               ></input>
