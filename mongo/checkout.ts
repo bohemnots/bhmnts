@@ -5,7 +5,6 @@ import {
 import { ObjectId } from "mongodb";
 import * as Yup from "yup";
 
-import { sendApprove } from "../utils/email";
 import { checkoutCollection } from "./client";
 
 const CheckoutSchema = Yup.object({
@@ -45,7 +44,7 @@ export const createApprovedCheckout = async (data): Promise<ICheckout> => {
     status: "approved",
     onDoor: true,
   });
-  await sendApprove(checkout.email, checkout._id + "");
+  // await sendApprove(checkout.email, checkout._id + "");
   return checkout;
 };
 
