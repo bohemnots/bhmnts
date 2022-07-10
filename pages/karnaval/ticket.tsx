@@ -229,7 +229,6 @@ const Price = (props) => {
                   accept="image/png"
                   type="file"
                   name="photo"
-                  capture="user"
                   required
                   hidden={!!values.photo}
                 ></input>
