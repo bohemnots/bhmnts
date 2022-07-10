@@ -1,4 +1,5 @@
 import Link from "next/dist/client/link";
+import Head from "next/head";
 import React from "react";
 import styled from "styled-components";
 
@@ -51,7 +52,7 @@ const SmallText = (props) => {
 };
 const NextPageLink = () => {
   return (
-    <Link href="karnaval/ticket">
+    <Link href="heqiatne_kanchum/ticket">
       <span style={linkStyle}>
         <h2>See More</h2>
       </span>
@@ -61,6 +62,33 @@ const NextPageLink = () => {
 const Lineup = (props) => {
   return (
     <Container>
+      <Head>
+        <title>My page title</title>
+        <meta property="og:title" content="Heqiatn e kanchum" key="title" />
+        <meta
+          property="og:description"
+          content='"fairy tale is calling" is a diversified art and music festival.'
+          key="desciription"
+        />
+        <meta
+          property="og:image"
+          content="https://bohemnotsradio.com/images/og-image.jpg"
+        ></meta>
+        <meta
+          property="og:image:secure_url"
+          content="https://bohemnotsradio.com/images/og-image.jpg"
+        ></meta>
+        <meta property="og:image:width" content="300"></meta>
+        <meta
+          property="og:description"
+          content="Bohemnots Radio is an online independent radio station, based in Yerevan, Armenia: broadcast, podcast, radio shows, live events and 24 hour mixed music."
+        ></meta>
+        <meta
+          property="og:url"
+          content="https://bohemnotsradio.com/heqiatne_kanchum"
+        ></meta>
+        <meta property="fb:app_id" content="617494228985895"></meta>
+      </Head>
       <CenteredWrapper className={props.className}>
         <Heading style={{ color: purpleColor, marginBottom: "0.1em" }}>
           Composers&apos; Union Dilijan <br />

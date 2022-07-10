@@ -116,7 +116,7 @@ const Remove = styled.button`
 `;
 const NextPageLink = () => {
   return (
-    <Link href="karnaval/ticket">
+    <Link href="heqiatne_kanchum/ticket">
       <span style={linkStyle}>
         <h2>BOOK TICKET</h2>
       </span>
