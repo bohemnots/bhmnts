@@ -90,7 +90,7 @@ const Lineup = (props) => {
       <CenteredWrapper className={props.className}>
         <Heading style={{ color: purpleColor, marginBottom: "0.1em" }}>
           Composers&apos; Union Dilijan <br />
-          SEPTEMBER 2-4
+          SEPTEMBER 2-3
         </Heading>
         <p style={{ fontSize: "1em" }}>
           Fairy tale is calling <br />

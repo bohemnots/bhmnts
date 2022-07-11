@@ -164,7 +164,7 @@ const Price = (props) => {
         <div>
           <Heading>
             Composers&apos; Union Dilijan <br />
-            SEPTEMBER 2-4
+            SEPTEMBER 2-3
           </Heading>
           <P style={{ marginBottom: "5px", fontSize: "1.3em" }}>
             100 limited edition tickets 5000amd + free bus <br />
