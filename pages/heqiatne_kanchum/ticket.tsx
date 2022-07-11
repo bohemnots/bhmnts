@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import { Formik, FormikProps } from "formik";
-import Link from "next/dist/client/link";
 import Image from "next/image";
 import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
@@ -12,6 +11,7 @@ const P = styled.p`
   font-size: 1.6em;
   color: ${purpleColor};
 `;
+
 const Heading = styled.p`
   font-size: 2em;
   color: ${purpleColor};
@@ -19,6 +19,7 @@ const Heading = styled.p`
     font-size: 1.5em;
   }
 `;
+
 const CenteredWrapper = styled.div`
   max-width: 90%;
   margin: 0 auto;
@@ -31,6 +32,7 @@ const CenteredWrapper = styled.div`
     margin-top: 1vh;
   }
 `;
+
 const Container = styled.div`
   color: white;
   background-color: black;
@@ -41,16 +43,14 @@ const Container = styled.div`
 `;
 
 const initialValues = {
-  name: "",
-  surname: "",
+  fullName: "",
   email: "",
   file: null,
   photo: null,
 };
 
 interface FormikValues {
-  name: string;
-  surname: string;
+  fullName: string;
   email: string;
   file: any;
   photo: any;
@@ -114,15 +114,6 @@ const Remove = styled.button`
   margin: auto;
   margin-bottom: 17px;
 `;
-const NextPageLink = () => {
-  return (
-    <Link href="heqiatne_kanchum/ticket">
-      <span style={linkStyle}>
-        <h2>BOOK TICKET</h2>
-      </span>
-    </Link>
-  );
-};
 const Price = (props) => {
   const [, setIsLoading] = useState(false);
   const ref = useRef<HTMLInputElement>(null);
@@ -133,12 +124,11 @@ const Price = (props) => {
       try {
         const form = new FormData();
 
-        form.append("name", values.name);
-        form.append("surname", values.surname);
+        form.append("fullName", values.fullName);
         form.append("email", (values.email + "").trim());
         form.append("photo", values.photo);
 
-        const response = await fetch("/api/create-ticket", {
+        const response = await fetch("/api/send-karnaval-info", {
           method: "POST",
           body: form,
         });
@@ -177,24 +167,30 @@ const Price = (props) => {
           innerRef={(_ref) => (formik.current = _ref)}
           onSubmit={buy}
           initialValues={{
-            name: "",
-            surname: "",
+            fullName: "",
             email: "",
             file: null,
             photo: null,
           }}
           validationSchema={BuyTicket}
         >
-          {({ values, errors, touched, setFieldValue }) => {
+          {({
+            values,
+            errors,
+            touched,
+            setFieldValue,
+            submitForm,
+            isSubmitting,
+          }) => {
             return (
               <View style={{ scale: "0.7" }}>
-                <Label htmlFor="full_name">{"Full Name"}</Label>
+                <Label htmlFor="fullName">{"Full Name"}</Label>
                 <Input
-                  onChange={(e) => setFieldValue("full_name", e.target.value)}
-                  name="full_name"
+                  onChange={(e) => setFieldValue("fullName", e.target.value)}
+                  name="fullName"
                   required
                 ></Input>
-                <Error>{touched.name ? errors.name || " " : " "}</Error>
+                <Error>{touched.fullName ? errors.fullName || " " : " "}</Error>
 
                 <Label htmlFor="email">{"Email"}</Label>
                 <Input
@@ -260,11 +256,15 @@ const Price = (props) => {
                   ) : null}
                 </Photo>
                 <Error>{errors.photo || " "}</Error>
+                {isSubmitting ? null : (
+                  <span style={linkStyle} onClick={() => submitForm()}>
+                    <h2>BOOK TICKET</h2>
+                  </span>
+                )}
               </View>
             );
           }}
         </Formik>
-        <NextPageLink></NextPageLink>
         <div>
           <div style={{ width: "200px" }}>
             <img
@@ -282,11 +282,7 @@ const Price = (props) => {
 export default Price;
 
 const BuyTicket = Yup.object().shape({
-  name: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  surname: Yup.string()
+  fullName: Yup.string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),

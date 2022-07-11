@@ -9,8 +9,7 @@ import { checkoutCollection } from "./client";
 
 const CheckoutSchema = Yup.object({
   email: Yup.string().required(),
-  name: Yup.string().required(),
-  surname: Yup.string().required(),
+  fullName: Yup.string().required(),
 });
 
 export const getCheckout = async (id: string): Promise<ICheckout> => {

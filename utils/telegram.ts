@@ -10,17 +10,16 @@ const bot = new TelegramBot(config.TELEGRAM.TOKEN || "", {});
 const getImgUrl = (id: string) =>
   `https://${S3.ENDPOINT}/${S3.BUCKET}/checkouts/${id}/photo.jpg`;
 
-export const newRequest = async (checkout, host?: string) => {
+export const newRequest = async (checkout) => {
   try {
     const imgUrl = getImgUrl(checkout._id);
     await bot.sendPhoto(TELEGRAM.CHAT_ID, imgUrl, {
       disable_notification: !config.IS_PROD,
       caption: [
         `New purchase request from `,
-        `${checkout.name} ${checkout.surname}`,
+        `${checkout.fullName}`,
         `${checkout.email}`,
         `${checkout._id}`,
-        `${host || HOST_URL}/checkouts/${checkout._id}/review`,
       ].join("\n"),
     });
   } catch (err) {
