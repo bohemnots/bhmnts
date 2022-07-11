@@ -137,6 +137,7 @@ export default function PlayerPage(props) {
           <meta
             property="og:description"
             content="Bohemnots Radio is an online independent radio station, based in Yerevan, Armenia: broadcast, podcast, radio shows, live events and 24 hour mixed music."
+            key="desciription"
           ></meta>
           <meta property="og:type" content="music.radio_station"></meta>
           <meta property="og:url" content="https://bohemnotsradio.com/"></meta>

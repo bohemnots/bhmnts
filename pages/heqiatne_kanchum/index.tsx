@@ -75,6 +75,7 @@ const Lineup = (props) => {
           property="og:image"
           content="https://bohemnotsradio.com/images/og-image.jpg"
         ></meta>
+        <meta property="og:image:width" content="300"></meta>
         <meta
           property="og:image:secure_url"
           content="https://bohemnotsradio.com/images/og-image.jpg"
@@ -83,6 +84,7 @@ const Lineup = (props) => {
         <meta
           property="og:description"
           content="Bohemnots Radio is an online independent radio station, based in Yerevan, Armenia: broadcast, podcast, radio shows, live events and 24 hour mixed music."
+          key="description"
         ></meta>
         <meta
           property="og:url"
