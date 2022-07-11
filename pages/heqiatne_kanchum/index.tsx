@@ -63,7 +63,8 @@ const Lineup = (props) => {
   return (
     <Container>
       <Head>
-        <title>My page title</title>
+        <title>Heqiatn e kanchum</title>
+        <meta property="og:type" content="music.radio_station"></meta>
         <meta property="og:title" content="Heqiatn e kanchum" key="title" />
         <meta
           property="og:description"
