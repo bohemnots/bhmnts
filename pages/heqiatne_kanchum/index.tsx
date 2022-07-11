@@ -63,9 +63,9 @@ const Lineup = (props) => {
   return (
     <Container>
       <Head>
-        <title>Heqiatn e kanchum</title>
+        <title>Հեքիաթն է կանչում</title>
         <meta property="og:type" content="music.radio_station"></meta>
-        <meta property="og:title" content="Heqiatn e kanchum" key="title" />
+        <meta property="og:title" content="Հեքիաթն է կանչում" key="title" />
         <meta
           property="og:description"
           content='"fairy tale is calling" is a diversified art and music festival.'
