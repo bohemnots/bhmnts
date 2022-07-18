@@ -273,6 +273,9 @@ const Price = (props) => {
               alt=""
             />
           </div>
+          <P style={{ marginBottom: "5px", fontSize: "1em" }}>
+            zapisnots@gmail.com
+          </P>
         </div>
       </CenteredWrapper>
     </Container>

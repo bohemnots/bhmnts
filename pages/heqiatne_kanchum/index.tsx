@@ -107,7 +107,7 @@ const Lineup = (props) => {
           <br />
           NODE . Diezel Tea
           <br />
-          F.I.X
+          F.I.X.
           <br />
           S-pichka
           <br />
