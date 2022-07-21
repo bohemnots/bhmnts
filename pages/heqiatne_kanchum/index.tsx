@@ -97,7 +97,7 @@ const Lineup = (props) => {
           For two days radio will be streamed from the hall named after
           Beethoven <br />
           We will have radio shows <br />
-          dance music, `concerts, live sessions & screenings <br />
+          dance music, concerts, live sessions & screenings <br />
           Program will be updated regularly
         </p>
         <P>
