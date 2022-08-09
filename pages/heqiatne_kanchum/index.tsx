@@ -99,7 +99,6 @@ const Lineup = (props) => {
           We will have radio shows <br />
           dance music, concerts
           <br /> live sessions & screenings <br />
-          Program will be updated regularly
         </p>
         <P>
           VHSound & Ensemble <br />
@@ -117,6 +116,12 @@ const Lineup = (props) => {
           mu.viz
           <br />
           <SmallText text={"[audio+visual]"} />
+          <br />
+          ON Y VA <br />
+          grigor.simonyan <br />
+          yozemal <br />
+          Mycotrophic <br />
+          sevu <br />
         </P>
         <br />
         <br />
