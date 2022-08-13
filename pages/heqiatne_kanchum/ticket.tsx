@@ -157,7 +157,7 @@ const Price = (props) => {
             SEPTEMBER 2-3
           </Heading>
           <P style={{ marginBottom: "5px", fontSize: "1.3em" }}>
-            50 special ticket 5000amd + free bus <br />
+            30 special ticket 5000amd + free bus <br />
             after 8000amd <br />
             buy online from{"  "}
             <a
