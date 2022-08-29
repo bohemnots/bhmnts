@@ -51,7 +51,7 @@ const Price = (props) => {
           </Heading>
           <P style={{ marginBottom: "5px", fontSize: "1.3em" }}>
             TICKET 5000amd + FREE BUS <br />
-            buy online from{">>"}
+            buy online from{" > "}
             <a
               style={{ color: purpleColor }}
               href="https://ticketon.am/events/fairytaleiscalling"
